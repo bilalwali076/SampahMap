@@ -1,0 +1,947 @@
+/* =========================================================
+   SampahMap Palembang — Modern Premium UI (Index)
+   Tema: Green Premium (Sinkron dengan halaman Laporan)
+   ========================================================= */
+
+/* =========================================================
+   1. DESIGN TOKENS
+   ========================================================= */
+:root {
+  /* Brand */
+  --green-900: #0b3d24;
+  --green-800: #14532d;
+  --green-700: #166534;
+  --green-600: #16a34a;
+  --green-500: #22c55e;
+  --green-100: #dcfce7;
+  --green-50:  #f0fdf4;
+
+  /* Netral */
+  --bg:        #f6f8f7;
+  --surface:   #ffffff;
+  --border:    #e6ebe8;
+  --text:      #0f172a;
+  --text-soft: #475569;
+  --text-mute: #94a3b8;
+
+  /* Aksen peta */
+  --blue: #2563eb;
+  --red:  #ef4444;
+
+  /* Radius */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, .05);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, .08);
+  --shadow-lg: 0 20px 50px rgba(15, 23, 42, .12);
+  --shadow-green: 0 12px 32px rgba(22, 163, 74, 0.08);
+
+  --font: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+
+/* =========================================================
+   2. RESET & BASE
+   ========================================================= */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font);
+  color: var(--text);
+  /* Background Gradient Hijau Mint yang sama dengan Laporan */
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+}
+
+body {
+  padding-bottom: 100px; /* ruang bottom-nav floating */
+}
+
+button, input, textarea, select { font: inherit; }
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 11px 18px;
+  background: linear-gradient(135deg, var(--green-600), var(--green-800));
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, .28);
+  transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+}
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(22, 163, 74, .35);
+}
+button:active { transform: translateY(0); }
+button:disabled { opacity: .5; cursor: not-allowed; box-shadow: none; }
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--green-600);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* =========================================================
+   3. NAVBAR
+   ========================================================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px max(5%, calc((100% - 1200px) / 2));
+  background: rgba(255, 255, 255, .85);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid #bbf7d0; /* Border hijau muda */
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -.01em;
+  color: var(--green-800);
+}
+
+.brand-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--green-600), var(--green-800));
+  color: #fff;
+  font-size: 1.15rem;
+  box-shadow: 0 8px 20px rgba(22, 163, 74, .35);
+}
+
+.brand small {
+  display: block;
+  font-size: .62rem;
+  letter-spacing: .18em;
+  color: var(--text-soft);
+  font-weight: 600;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.online-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--green-700);
+  background: var(--green-100);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #bbf7d0;
+}
+
+.menu-button {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--green-800);
+  font-size: 1.15rem;
+  box-shadow: var(--shadow-sm);
+  transition: .2s;
+}
+.menu-button:hover {
+  background: var(--green-50);
+  border-color: #bbf7d0;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   4. SIDE MENU & OVERLAY
+   ========================================================= */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, .38);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s ease, visibility .25s ease;
+  z-index: 2000;
+}
+.menu-overlay.active,
+.menu-overlay.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(320px, 88vw);
+  height: 100%;
+  height: 100dvh;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  padding: 22px 20px;
+  transform: translateX(105%);
+  transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+  z-index: 2001;
+}
+.side-menu.active,
+.side-menu.show { transform: translateX(0); }
+
+.side-menu-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.side-menu-header h3 { margin: 0; font-size: 1.05rem; color: var(--green-800); }
+.side-menu-header small {
+  font-size: .65rem;
+  letter-spacing: .18em;
+  color: var(--text-mute);
+}
+
+.side-menu-header button {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text-soft);
+  font-size: 1.2rem;
+  box-shadow: none;
+  transition: .2s;
+}
+.side-menu-header button:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  transform: none;
+}
+
+.side-menu-label {
+  margin: 20px 0 10px;
+  font-size: .7rem;
+  letter-spacing: .15em;
+  color: var(--text-mute);
+  font-weight: 700;
+}
+
+.side-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  font-weight: 600;
+  color: var(--text);
+  transition: .2s;
+}
+.side-menu-link:hover {
+  background: var(--green-50);
+  color: var(--green-800);
+}
+.side-menu-link span:first-child {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  background: var(--green-100);
+  border-radius: 10px;
+  font-weight: 800;
+  color: var(--green-700);
+}
+
+/* =========================================================
+   5. CONTAINER & INTRO
+   ========================================================= */
+.container {
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.intro {
+  text-align: center;
+  max-width: 680px;
+  margin: 12px auto 38px;
+  padding: 40px 0 8px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  color: var(--green-700);
+  background: var(--green-100);
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #bbf7d0;
+  margin: 0 0 18px;
+}
+
+.intro h1 {
+  font-size: clamp(1.8rem, 4.6vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -.025em;
+  margin: 0 0 14px;
+  color: var(--green-900);
+}
+
+.description {
+  color: var(--text-soft);
+  font-size: 1rem;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   6. MAP SECTION & CARDS (Gaya Laporan)
+   ========================================================= */
+.map-section, .info-card, .route-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 6px solid var(--green-600); /* Garis Aksen Hijau Atas */
+  border-radius: var(--r-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-green); /* Shadow Hijau Tipis */
+  margin-bottom: 24px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.section-heading h2 {
+  margin: 0 0 4px;
+  font-size: 1.35rem;
+  letter-spacing: -.01em;
+  color: var(--green-900);
+}
+.section-heading p {
+  margin: 0;
+  font-size: .9rem;
+  color: var(--text-soft);
+}
+
+.map-badge {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: var(--green-800);
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  padding: 8px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 8px 4px 16px;
+  font-size: .82rem;
+  color: var(--text-soft);
+  font-weight: 500;
+}
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, .05);
+}
+.dot.green { background: var(--green-600); }
+.dot.blue  { background: var(--blue); }
+.dot.red   { background: var(--red); }
+
+/* =========================================================
+   7. MAP CONTAINER & LEAFLET
+   ========================================================= */
+.map-container {
+  position: relative;
+  width: 100%;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 2px solid #bbf7d0;
+  background: #eef2f0;
+}
+
+#map {
+  position: relative;
+  width: 100%;
+  height: 68vh;
+  min-height: 420px;
+  max-height: 720px;
+  background: #eef2f0;
+  z-index: 1;
+}
+
+/* =========================================================
+   8. MAP SEARCH & RESULTS (Input Mint)
+   ========================================================= */
+.map-search {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  z-index: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(440px, calc(100% - 28px));
+  padding: 8px;
+  background: var(--surface);
+  border-radius: var(--r-md);
+  border: 1px solid #bbf7d0;
+  box-shadow: var(--shadow-md);
+}
+
+.map-search > span { padding-left: 6px; font-size: 1rem; }
+
+.map-search input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  border: none;
+  outline: none;
+  background: var(--green-50); /* Input warna mint */
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text);
+  transition: all 0.25s ease;
+}
+.map-search input:focus {
+  background: var(--surface); /* Putih saat fokus */
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+}
+.map-search input::placeholder { color: var(--text-mute); }
+
+.map-search button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--green-600), var(--green-800));
+  color: #fff;
+  font-weight: 700;
+  font-size: .85rem;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, .3);
+}
+.map-search button:hover { filter: brightness(1.05); }
+
+/* Daftar hasil pencarian */
+.search-results {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  max-height: 280px;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid #bbf7d0;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lg);
+}
+.search-results.active,
+.search-results.show { display: block; }
+
+.search-result {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  text-align: left;
+  background: var(--surface);
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  color: var(--text);
+  font-weight: 400;
+  box-shadow: none;
+}
+.search-result:last-child { border-bottom: 0; }
+.search-result:hover {
+  background: var(--green-50);
+  transform: none;
+  box-shadow: none;
+}
+.search-result strong { display: block; color: var(--green-900); font-weight: 700; }
+.search-result small {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-soft);
+  font-size: 12px;
+}
+
+/* =========================================================
+   9. MAP CONTROLS
+   ========================================================= */
+.map-controls {
+  position: absolute;
+  right: 14px;
+  bottom: 20px;
+  z-index: 700;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.map-controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid #bbf7d0;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--green-800);
+  box-shadow: var(--shadow-md);
+  font-size: 24px;
+  font-weight: 700;
+  padding: 0;
+  transition: transform .15s ease, background .2s;
+}
+.map-controls button:hover {
+  background: var(--green-50);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+.map-controls button:active { transform: scale(.94); }
+
+.map-controls .map-location-control {
+  margin-top: 4px;
+  background: linear-gradient(135deg, var(--green-600), var(--green-800));
+  color: #fff;
+  border-color: transparent;
+  font-size: 20px;
+  box-shadow: 0 8px 20px rgba(22, 163, 74, .4);
+}
+.map-controls .map-location-control:hover {
+  filter: brightness(1.08);
+}
+
+/* =========================================================
+   10. TPS TERDEKAT (Menyatu dengan Tema)
+   ========================================================= */
+.nearest-section {
+  margin-top: 22px;
+  padding: 20px;
+  background: linear-gradient(180deg, var(--green-50), var(--surface));
+  border: 1px dashed #86efac; /* Border hijau putus-putus */
+  border-radius: var(--r-md);
+}
+
+.nearest-section h3 {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+  color: var(--green-900);
+}
+
+.nearest-section > p {
+  margin: 0 0 14px;
+  font-size: .9rem;
+  color: var(--text-soft);
+}
+
+/* Tombol Khusus Pencarian TPS */
+#findNearestButton {
+  margin: 4px 0 14px;
+  background: linear-gradient(135deg, var(--green-600), var(--green-800));
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(11, 61, 36, .25);
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 700;
+}
+#findNearestButton:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+/* Daftar Item TPS */
+.nearest-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+.nearest-list:empty { display: none; }
+
+.nearest-item {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--green-500); /* Aksen hijau di kiri */
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-weight: 400;
+  box-shadow: var(--shadow-sm);
+  transition: .2s;
+  cursor: pointer;
+}
+.nearest-item:hover {
+  border-color: var(--green-500);
+  border-left-width: 6px;
+  box-shadow: 0 6px 18px rgba(22, 163, 74, .15);
+  transform: translateX(4px);
+}
+.nearest-item strong {
+  display: block;
+  color: var(--green-900);
+  font-weight: 700;
+}
+.nearest-item small {
+  display: block;
+  margin-top: 5px;
+  color: var(--text-soft);
+  font-weight: 400;
+  font-size: .82rem;
+}
+
+.nearest-section.navigation-hidden { display: none !important; }
+
+/* =========================================================
+   11. BOTTOM NAV (Floating Dock)
+   ========================================================= */
+.bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 1500;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  width: min(360px, calc(100% - 32px));
+  background: rgba(255, 255, 255, .92);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border: 1px solid #bbf7d0;
+  border-radius: 999px;
+  box-shadow: var(--shadow-lg);
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  color: var(--text-soft);
+  font-size: 1.15rem;
+  font-weight: 600;
+  transition: .2s;
+}
+.nav-item small {
+  font-size: .72rem;
+  font-weight: 600;
+}
+.nav-item:hover {
+  background: var(--green-100);
+  color: var(--green-800);
+}
+
+.nav-item.active {
+  background: linear-gradient(135deg, var(--green-600), var(--green-800));
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(22, 163, 74, .35);
+}
+.nav-item.active:hover {
+  color: #fff;
+  filter: brightness(1.05);
+}
+
+/* =========================================================
+   12. RUTE & NAVIGASI
+   ========================================================= */
+.route-panel {
+  display: none;
+  margin-top: 16px;
+  border-top: 6px solid var(--green-600); /* Sinkron dengan kartu lain */
+}
+.route-panel.show { display: block; }
+.route-panel.navigation-focus {
+  padding: 18px;
+  border-radius: var(--r-md);
+}
+
+.route-panel h3 {
+  margin: 0 0 10px;
+  color: var(--green-900);
+  font-size: 1.2rem;
+}
+.route-panel h4 {
+  margin: 20px 0 8px;
+  font-size: .95rem;
+  color: var(--text);
+}
+.route-panel p {
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+/* Pilihan rute */
+.route-choices {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.route-choice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  font-weight: 400;
+  box-shadow: none;
+  transition: .2s;
+}
+.route-choice:hover {
+  border-color: #86efac;
+  background: var(--green-50);
+  transform: none;
+  box-shadow: none;
+}
+.route-choice.selected {
+  border-color: var(--green-600);
+  background: var(--green-50);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, .12);
+}
+.route-choice strong {
+  font-size: .95rem;
+  color: var(--green-900);
+}
+.route-choice span {
+  font-size: .85rem;
+  color: var(--text-soft);
+}
+
+/* Tombol aksi rute */
+.route-start-button,
+.route-action-button,
+.route-secondary-button,
+.route-stop-button {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.route-start-button,
+.route-action-button {
+  background: linear-gradient(135deg, var(--green-600), var(--green-800));
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(22, 163, 74, .28);
+}
+.route-start-button:hover,
+.route-action-button:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.route-secondary-button {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--green-700);
+  box-shadow: var(--shadow-sm);
+}
+.route-secondary-button:hover {
+  background: var(--green-50);
+  border-color: #bbf7d0;
+}
+
+.route-stop-button {
+  background: #fee2e2;
+  color: #b91c1c;
+  box-shadow: none;
+}
+.route-stop-button:hover {
+  background: #fecaca;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Ringkasan navigasi */
+.navigation-summary {
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  color: var(--green-900);
+  border: 1px solid #86efac;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.navigation-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 12px 0;
+}
+.navigation-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.navigation-stats small {
+  color: var(--text-mute);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.navigation-stats strong {
+  color: var(--green-800);
+  font-size: 1.4rem;
+}
+
+.navigation-instructions {
+  padding-left: 24px;
+}
+.navigation-instructions li {
+  margin-bottom: 12px;
+  padding-left: 4px;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+#navigationStatus {
+  color: var(--text-mute);
+  font-size: .8rem;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   13. MEDIA QUERIES
+   ========================================================= */
+@media (max-width: 640px) {
+  .navbar { padding: 12px 5%; }
+  .brand { font-size: 1rem; }
+  .brand-icon { width: 38px; height: 38px; font-size: 1rem; }
+  .online-label { font-size: .7rem; padding: 6px 10px; }
+
+  .container { width: 94%; }
+  .intro { padding-top: 28px; }
+
+  .map-section { padding: 16px; border-radius: var(--r-md); border-top-width: 4px; }
+
+  .section-heading { align-items: flex-start; }
+  .section-heading h2 { font-size: 1.15rem; }
+
+  #map { height: 68vh; min-height: 420px; }
+
+  .map-search {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    gap: 6px;
+    padding: 6px;
+  }
+  .map-search input { font-size: 13px; padding: 8px 10px; }
+  .map-search button { padding: 8px 12px; font-size: .8rem; }
+
+  .map-controls { right: 12px; bottom: 18px; gap: 10px; }
+  .map-controls button { width: 46px; height: 46px; font-size: 22px; }
+
+  .route-panel { padding: 16px; border-radius: var(--r-md); }
+  .route-panel h3 { font-size: 1.05rem; }
+}
+
+@media (max-width: 600px) {
+  .online-label { display: none; }
+  .navbar-right { gap: 8px; }
+}
+
+@media (max-width: 480px) {
+  .navigation-summary { font-size: .95rem; }
+  .navigation-stats strong { font-size: 1.2rem; }
+}
+
+/* =========================================================
+   14. LEAFLET TWEAKS
+   ========================================================= */
+.leaflet-control-attribution {
+  font-size: .68rem !important;
+  background: rgba(255, 255, 255, .85) !important;
+  border-radius: 6px 0 0 0;
+  font-family: var(--font) !important;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 14px !important;
+  box-shadow: 0 12px 32px rgba(22, 163, 74, .15) !important;
+  border-top: 4px solid var(--green-600); /* Popup peta juga diberi aksen hijau */
+}
+.leaflet-popup-content {
+  font-family: var(--font);
+  font-size: .88rem;
+  margin: 14px 16px !important;
+  line-height: 1.5;
+}
+.leaflet-popup-content b { color: var(--green-900); }
+.leaflet-container { font-family: var(--font); }

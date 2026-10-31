@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+   
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#166534">
+
+  <meta name="description"
+    content="SampahMap Palembang membantu masyarakat menemukan lokasi TPS dan melaporkan titik pembuangan sampah liar di Kota Palembang.">
+  
+  <!-- PWA Setup -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>SampahMap Palembang | Peta Lingkungan</title>
+
+  <!-- TAMBAHKAN 3 BARIS INI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- SAMPAI SINI -->
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="navbar">
+    <a class="brand" href="index.html" aria-label="SampahMap Palembang - Beranda">
+      <span class="brand-icon">♻</span>
+      <span>
+        SampahMap
+        <small>PALEMBANG</small>
+      </span>
+    </a>
+
+    <div class="navbar-right">
+      
+      <!-- Tombol Install PWA -->
+      <button type="button" id="installAppBtn" class="btn-install" style="display: none;">
+        📲 Install Aplikasi
+      </button>
+
+      <span class="online-label">● Peta Lingkungan</span>
+
+      <button type="button" id="menuButton" class="menu-button" aria-label="Buka menu" aria-expanded="false">
+        ☰
+      </button>
+
+    </div>
+  </header>
+
+  <!-- OVERLAY MENU -->
+  <div id="menuOverlay" class="menu-overlay"></div>
+
+  <!-- MENU SAMPING -->
+  <aside id="sideMenu" class="side-menu" aria-label="Menu tambahan">
+
+    <div class="side-menu-header">
+      <div>
+        <h3>♻ SampahMap</h3>
+        <small>PALEMBANG</small>
+      </div>
+
+      <button type="button" id="closeMenuButton" aria-label="Tutup menu">
+        ×
+      </button>
+    </div>
+
+    <p class="side-menu-label">INFORMASI</p>
+
+    <a href="tentang.html" class="side-menu-link">
+      <span>ⓘ</span>
+      <span>Tentang SampahMap</span>
+    </a>
+
+  </aside>
+
+
+  <main class="container">
+
+    <!-- INTRO -->
+    <section class="intro">
+      <p class="eyebrow">
+        LINGKUNGAN KITA, TANGGUNG JAWAB KITA
+      </p>
+
+      <h1>
+        Palembang lebih bersih,<br>
+        mulai dari sekitar kita.
+      </h1>
+
+      <p class="description">
+        Temukan lokasi tempat pembuangan sampah (TPS),
+        lihat petunjuk arah, dan bantu menjaga kebersihan
+        lingkungan Kota Palembang.
+      </p>
+    </section>
+
+
+    <!-- PETA -->
+    <section class="map-section" aria-labelledby="mapTitle">
+
+      <div class="section-heading">
+        <div>
+          <h2 id="mapTitle">Peta SampahMap</h2>
+          <p>Cari lokasi atau pilih penanda pada peta.</p>
+        </div>
+
+        <span class="map-badge">Palembang</span>
+      </div>
+
+      <!-- LEGENDA PETA -->
+      <div class="legend" aria-label="Keterangan penanda peta">
+        <span><i class="dot green"></i> TPS</span>
+        <span><i class="dot blue"></i> TPA</span>
+        <span><i class="dot red"></i> Sampah liar</span>
+      </div>
+
+      <!-- AREA PETA -->
+      <div class="map-container">
+
+        <div class="map-search">
+          <span aria-hidden="true">🔎</span>
+
+          <input type="text" id="searchLocation" placeholder="Cari TPS, pasar, atau nama jalan..." autocomplete="off"
+            aria-label="Cari lokasi TPS atau nama jalan">
+
+          <button type="button" id="searchButton">Cari</button>
+
+          <div id="searchResults" class="search-results" aria-live="polite"></div>
+        </div>
+
+        <!-- PETA LEAFLET -->
+        <div id="map" role="application" aria-label="Peta lokasi TPS dan TPA di Kota Palembang"></div>
+
+        <!-- KONTROL PETA -->
+        <div class="map-controls">
+
+          <button type="button" id="zoomInButton" aria-label="Perbesar peta">+</button>
+
+          <button type="button" id="zoomOutButton" aria-label="Perkecil peta">−</button>
+
+          <button type="button" id="myLocationButton" class="map-location-control"
+            aria-label="Tampilkan lokasi saya">➤</button>
+
+        </div>
+      </div>
+
+      <!-- TPS TERDEKAT -->
+      <section class="nearest-section" aria-labelledby="nearestTitle">
+
+        <h3 id="nearestTitle">TPS Terdekat dari Saya</h3>
+
+        <p id="nearestMessage">
+          Gunakan tombol lokasi untuk menemukan TPS terdekat
+          dari posisi Anda.
+        </p>
+
+        <button type="button" id="findNearestButton">
+          Cari TPS Terdekat
+        </button>
+
+        <div id="nearestList" class="nearest-list" aria-live="polite"></div>
+
+      </section>
+
+    </section>
+
+
+    <!-- INFORMASI APLIKASI -->
+    <section class="info-card">
+
+      <span class="info-icon" aria-hidden="true">📍</span>
+
+      <div>
+        <h3>Temukan. Laporkan. Jaga Palembang.</h3>
+
+        <p>
+          Temukan lokasi TPS yang tersedia dan bantu menjaga
+          kebersihan lingkungan dengan mengirimkan laporan
+          jika menemukan pembuangan sampah liar.
+          Setiap laporan yang berhasil dikirim akan tersimpan
+          dalam sistem SampahMap Palembang.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- NAVIGASI BAWAH -->
+  <nav class="bottom-nav" aria-label="Navigasi utama">
+
+    <a class="nav-item active" href="index.html" aria-current="page">
+      <span aria-hidden="true">🗺️</span>
+      <small>Peta</small>
+    </a>
+
+    <a class="nav-item" href="laporan.html">
+      <span aria-hidden="true">📝</span>
+      <small>Laporan</small>
+    </a>
+
+  </nav>
+
+
+  <!-- JAVASCRIPT -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="Data/tps-data.js"></script>
+  <script src="app.js"></script>
+  
+  <!-- PWA Script -->
+  <script>
+    // 1. Daftarkan Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .catch(err => console.log('SW gagal:', err));
+      });
+    }
+
+    // 2. Logika Tombol Install
+    let deferredPrompt;
+    const installBtn = document.getElementById('installAppBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Mencegah pop-up mini browser muncul
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Tampilkan tombol install kustom kita
+      if (installBtn) {
+        installBtn.style.display = 'inline-flex';
+      }
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        
+        // Tampilkan pop-up install
+        deferredPrompt.prompt();
+        
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installBtn.style.display = 'none'; // Sembunyikan tombol jika sudah di-install
+        }
+        deferredPrompt = null;
+      });
+    }
+
+    // Sembunyikan tombol jika aplikasi sudah di-install
+    window.addEventListener('appinstalled', () => {
+      if (installBtn) installBtn.style.display = 'none';
+    });
+  </script>
+
+</body>
+
+</html>

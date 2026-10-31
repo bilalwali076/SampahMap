@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#166534">
+  <meta name="description" content="Laporkan titik pembuangan sampah liar di Kota Palembang melalui SampahMap.">
+  
+  <title>Laporan Sampah - SampahMap Palembang</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <!-- CSS Utama & Laporan -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="laporan.css">
+  
+  <!-- PWA Setup -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+
+<body>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="navbar">
+    <a class="brand" href="index.html" aria-label="SampahMap Palembang">
+      <span class="brand-icon">♻</span>
+      <span>
+        SampahMap
+        <small>PALEMBANG</small>
+      </span>
+     
+    </a>
+
+    <div class="navbar-right">
+      
+      <!-- Tombol Install PWA -->
+      <button type="button" id="installAppBtn" class="btn-install" style="display: none;">
+        📲 Install Aplikasi
+      </button>
+
+      <span class="online-label">● Laporan Lingkungan</span>
+      
+      <button type="button" id="menuButton" class="menu-button" aria-label="Buka menu" aria-expanded="false">
+        ☰
+      </button>
+      
+    </div>
+  </header>
+
+  <!-- OVERLAY MENU -->
+  <div id="menuOverlay" class="menu-overlay"></div>
+
+  <!-- MENU SAMPING -->
+  <aside id="sideMenu" class="side-menu" aria-label="Menu tambahan">
+    <div class="side-menu-header">
+      <div>
+        <h3>♻ SampahMap</h3>
+        <small>PALEMBANG</small>
+      </div>
+      <button type="button" id="closeMenuButton" aria-label="Tutup menu">×</button>
+    </div>
+
+    <p class="side-menu-label">INFORMASI</p>
+    <a href="tentang.html" class="side-menu-link">
+      <span>ⓘ</span>
+      <span>Tentang SampahMap</span>
+    </a>
+  </aside>
+
+  <!-- KONTEN UTAMA -->
+  <main class="container report-container">
+
+    <!-- INTRO -->
+    <section class="intro">
+      <p class="eyebrow">PEDULI LINGKUNGAN</p>
+      <h1>Laporkan Sampah Liar.</h1>
+      <p class="description">
+        Bantu jaga Palembang tetap bersih dengan melaporkan lokasi sampah liar atau menumpuk di sekitar Anda.
+      </p>
+    </section>
+
+    <!-- FORMULIR LAPORAN -->
+    <section class="report-card">
+      <h2>Formulir Laporan</h2>
+      <p class="report-description">Isi informasi berikut dengan jelas dan benar.</p>
+
+      <form id="reportForm">
+
+        <div class="form-group">
+          <label for="reporterName">Nama pelapor</label>
+          <input type="text" id="reporterName" name="reporterName" placeholder="Masukkan nama kamu" maxlength="100"
+            required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+          <label for="reportType">Jenis laporan</label>
+          <select id="reportType" name="reportType" required>
+            <option value="">Pilih jenis laporan</option>
+            <option value="Sampah liar">Sampah liar</option>
+            <option value="Sampah menumpuk">Sampah menumpuk</option>
+            <option value="Pembakaran sampah">Pembakaran sampah</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="reportAddress">Alamat atau lokasi sampah</label>
+          <input type="text" id="reportAddress" name="reportAddress" placeholder="Pilih lokasi melalui peta"
+            maxlength="250" required autocomplete="off">
+
+          <button type="button" id="useCurrentLocation" class="btn-pick-location">
+            📍 Pilih Lokasi dari Peta
+          </button>
+
+          <small id="locationMessage" class="help-text">
+            Pilih titik lokasi pada peta agar koordinat laporan lebih akurat.
+          </small>
+
+          <!-- KOORDINAT (HIDDEN) -->
+          <input type="hidden" id="latitude" name="latitude">
+          <input type="hidden" id="longitude" name="longitude">
+
+          <!-- PEMILIHAN LOKASI MAP -->
+          <section id="locationPicker" class="location-picker" hidden>
+            <h3>Pilih titik lokasi laporan</h3>
+            <p>Gunakan tombol GPS atau ketuk titik pada peta tempat sampah ditemukan.</p>
+
+            <button type="button" id="getCurrentGPS" class="btn-gps">
+              ◎ Gunakan GPS Saya
+            </button>
+
+            <div id="reportMap" aria-label="Peta pemilihan lokasi laporan"></div>
+
+            <p id="selectedCoordinates" class="coordinates-text">
+              Belum ada lokasi yang dipilih.
+            </p>
+
+            <div class="location-actions">
+              <button type="button" id="confirmLocation" class="btn-primary" disabled>
+                Gunakan Lokasi Ini
+              </button>
+              <button type="button" id="cancelLocation" class="btn-secondary">
+                Batal
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <div class="form-group">
+          <label for="reportDescription">Deskripsi laporan</label>
+          <textarea id="reportDescription" name="reportDescription" rows="4" maxlength="1000"
+            placeholder="Jelaskan kondisi dan perkiraan jumlah sampah..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="reportPhoto">Foto sampah (opsional)</label>
+          <input type="file" id="reportPhoto" name="reportPhoto" accept="image/*">
+          <small>Foto yang dipilih akan ditampilkan sebagai pratinjau dan dikompresi otomatis.</small>
+          <img id="photoPreview" alt="Pratinjau foto laporan" hidden>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          Kirim Laporan
+        </button>
+
+        <!-- PESAN STATUS LAPORAN -->
+        <div id="reportMessage" role="status" aria-live="polite" class="report-message"></div>
+
+      </form>
+    </section>
+  </main>
+
+  <!-- NAVIGASI BAWAH -->
+  <nav class="bottom-nav" aria-label="Navigasi utama">
+    <a class="nav-item" href="index.html">
+      <span aria-hidden="true">🗺️</span>
+      <small>Peta</small>
+    </a>
+    <a class="nav-item active" href="laporan.html" aria-current="page">
+      <span aria-hidden="true">📝</span>
+      <small>Laporan</small>
+    </a>
+  </nav>
+
+  <!-- JAVASCRIPT LEAFLET -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- JAVASCRIPT LAPORAN -->
+  <script src="laporan.js"></script>
+
+  <!-- SCRIPT MENU SAMPING -->
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const closeMenuButton = document.getElementById("closeMenuButton");
+    const sideMenu = document.getElementById("sideMenu");
+    const menuOverlay = document.getElementById("menuOverlay");
+
+    function openSideMenu() {
+      sideMenu.classList.add("show");
+      menuOverlay.classList.add("show");
+      menuButton.setAttribute("aria-expanded", "true");
+    }
+
+    function closeSideMenu() {
+      sideMenu.classList.remove("show");
+      menuOverlay.classList.remove("show");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+
+    menuButton?.addEventListener("click", openSideMenu);
+    closeMenuButton?.addEventListener("click", closeSideMenu);
+    menuOverlay?.addEventListener("click", closeSideMenu);
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeSideMenu();
+    });
+  </script>
+  
+  <!-- PWA Script -->
+  <script>
+    // 1. Daftarkan Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .catch(err => console.log('SW gagal:', err));
+      });
+    }
+
+    // 2. Logika Tombol Install
+    let deferredPrompt;
+    const installBtn = document.getElementById('installAppBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Mencegah pop-up mini browser muncul
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Tampilkan tombol install kustom kita
+      if (installBtn) {
+        installBtn.style.display = 'inline-flex';
+      }
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        
+        // Tampilkan pop-up install
+        deferredPrompt.prompt();
+        
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installBtn.style.display = 'none'; // Sembunyikan tombol jika sudah di-install
+        }
+        deferredPrompt = null;
+      });
+    }
+
+    // Sembunyikan tombol jika aplikasi sudah di-install
+    window.addEventListener('appinstalled', () => {
+      if (installBtn) installBtn.style.display = 'none';
+    });
+  </script>
+
+</body>
+
+</html>
