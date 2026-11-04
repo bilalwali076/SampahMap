@@ -1,0 +1,138 @@
+/* =========================================================
+   GreenEarth — lapisan tema (dimuat paling akhir).
+   Flat, berbatas jelas, tanpa blur/gradasi. Tata letak tidak diubah.
+   ========================================================= */
+
+body { font-family: var(--font); font-weight: 400; line-height: 1.6; background: var(--bg); }
+code, kbd, samp, pre, .mono, .ni-dist, .count, .stat-num, .hero-stats dd { font-family: var(--font-mono); }
+.hero-stats dd, .stat-num { font-family: var(--font-head); font-weight: 900; }
+
+/* Judul: Merriweather */
+.hero h1 { font-size: clamp(2rem, 6.4vw, 3.1rem); font-weight: 900; line-height: 1.15; letter-spacing: -0.01em; }
+.section-head h2, .page-head h1 { font-size: clamp(1.5rem, 3.2vw, 2rem); line-height: 1.25; letter-spacing: -0.005em; }
+.page-head h1 { font-size: clamp(1.75rem, 4.4vw, 2.5rem); font-weight: 900; line-height: 1.2; }
+.about-closing h2 { font-size: clamp(1.5rem, 3.6vw, 2.2rem); }
+h3 { font-size: 1.25rem; }
+
+/* ---------- Permukaan datar: kartu putih + border hijau muda ---------- */
+.glass, .card, .quick-card, .nearest-section, .route-panel, .preview, .cta-band,
+.edu-card, .goal-card, .rcard, .stat, .about-closing, .side-menu, .map-search, .hero-search {
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+.quick-card:hover, .rcard:hover, .edu-card:hover, .goal-card:hover {
+  transform: none;
+  border-color: var(--em);
+  box-shadow: var(--shadow-md);
+}
+.nav-inner { border-radius: var(--r-lg); box-shadow: var(--shadow-sm); }
+.bottom-nav { border-radius: var(--r-lg); box-shadow: var(--shadow-md); }
+.menu-overlay { backdrop-filter: none; }
+
+/* ---------- Tombol ---------- */
+.btn { min-height: 40px; padding: 0 1.5rem; font-size: 1rem; font-weight: 700; border-radius: var(--r-md);
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s; }
+.btn:active { transform: none; opacity: 0.92; }
+.btn-sm { min-height: 32px; padding: 0 1rem; font-size: 0.875rem; }
+.btn-lg { min-height: 48px; padding: 0 2rem; font-size: 1.125rem; }
+.btn-primary { background: var(--em); color: var(--on-em); border-color: transparent; box-shadow: none; }
+.btn-primary:hover:not(:disabled) { background: var(--em-600); transform: none; box-shadow: none; }
+:root[data-theme="dark"] .btn-primary:hover:not(:disabled) { background: #4ADE80; }
+.btn-ghost { background: transparent; color: var(--em-ink); border: 2px solid var(--em-ink); }
+.btn-ghost:hover:not(:disabled) { background: var(--em-soft); border-color: var(--em-ink); transform: none; }
+.btn-glass { background: var(--card); border: 1px solid var(--line); color: var(--ink); }
+.btn-glass:hover:not(:disabled) { border-color: var(--em); transform: none; }
+.btn-danger { background: #DC2626; color: #fff; border-color: transparent; }
+.btn-danger:hover:not(:disabled) { background: #B91C1C; }
+.btn-secondary { background: var(--earth); color: #fff; border-color: transparent; }
+.btn-secondary:hover:not(:disabled) { background: var(--earth-600); }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.5; }
+.icon-btn { border-radius: var(--r-md); }
+
+/* ---------- Chip & badge ---------- */
+.chip { border-radius: var(--r-sm); background: var(--card); border: 1px solid var(--line-strong); color: var(--ink-2); font-weight: 600; }
+.chip:hover { transform: none; border-color: var(--em); }
+.chip[aria-pressed="true"] { background: rgba(22, 101, 52, 0.08); border-color: rgba(22, 101, 52, 0.4); color: var(--em-ink); }
+:root[data-theme="dark"] .chip[aria-pressed="true"] { background: rgba(134, 239, 172, 0.12); border-color: rgba(134, 239, 172, 0.4); }
+.chip .dot { border-radius: 50%; }
+.badge { border-radius: var(--r-sm); font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.65rem; }
+.badge--menunggu { --b-bg: #FEF3C7; --b-fg: #92400E; }
+.badge--selesai { --b-bg: #DCFCE7; --b-fg: #166534; }
+.badge--tinggi { --b-bg: #FEE2E2; --b-fg: #991B1B; }
+.badge--diproses { --b-bg: #E0F2FE; --b-fg: #075985; }
+:root[data-theme="dark"] .badge--menunggu { --b-bg: rgba(217, 119, 6, 0.2); --b-fg: #FCD34D; }
+:root[data-theme="dark"] .badge--selesai { --b-bg: rgba(34, 197, 94, 0.18); --b-fg: #86EFAC; }
+:root[data-theme="dark"] .badge--tinggi { --b-bg: rgba(220, 38, 38, 0.2); --b-fg: #FCA5A5; }
+:root[data-theme="dark"] .badge--diproses { --b-bg: rgba(56, 189, 248, 0.16); --b-fg: #7DD3FC; }
+
+/* ---------- Navigasi ---------- */
+.nav-link { border-radius: var(--r-md); font-weight: 600; }
+.nav-link.is-active, .nav-link[aria-current="page"] { background: var(--em-soft); color: var(--em-ink); box-shadow: inset 0 -2px 0 var(--em-ink); }
+.nav-item { border-radius: var(--r-md); font-weight: 600; }
+.fab-icon { border-radius: var(--r-lg); background: var(--em); box-shadow: 0 0 0 5px var(--bg); }
+.nav-fab { color: var(--em-ink); }
+.side-menu-link { border-radius: var(--r-md); }
+.side-menu-link.active, .side-menu-link.is-active { border-left: 3px solid var(--em-ink); border-radius: 0 var(--r-md) var(--r-md) 0; }
+.side-menu-link:hover { transform: none; }
+.brand-text { font-family: var(--font-head); font-weight: 900; }
+.brand-text small { font-family: var(--font); font-weight: 600; }
+
+/* ---------- Input ---------- */
+input, select, textarea, .form-group input, .form-group select, .form-group textarea {
+  border-radius: var(--r-md);
+  background: #fff;
+  color: #14291E;
+}
+:root[data-theme="dark"] input, :root[data-theme="dark"] select, :root[data-theme="dark"] textarea { background: var(--card-2); color: var(--ink); }
+.form-group input, .form-group select, .form-group textarea { border: 1px solid var(--line); }
+.form-group input:hover, .form-group select:hover, .form-group textarea:hover { border-color: var(--line-strong); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus,
+.map-search:focus-within, .hero-search:focus-within {
+  border: 2px solid var(--em); box-shadow: var(--glow); outline: 0;
+}
+.map-search:focus-within, .hero-search:focus-within { border-width: 1px; border-color: var(--em); }
+.form-group label { font-weight: 600; font-size: 0.875rem; }
+:focus-visible { outline: 2px solid var(--em); outline-offset: 2px; }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--em); }
+
+/* ---------- Peta & komponen ---------- */
+.map-container { border-radius: var(--r-lg); box-shadow: none; border: 1px solid var(--line); }
+.map-btn { border-radius: var(--r-md); background: var(--card); }
+.map-btn:hover { transform: none; border-color: var(--em); }
+.map-btn[data-state="follow"] { background: var(--em); color: var(--on-em); }
+.map-nearest-btn { background: var(--em); color: var(--on-em); }
+.search-result:hover, button.search-result:hover { background: rgba(22, 101, 52, 0.08); }
+.nearest-item { border-radius: var(--r-md); }
+.nearest-item:hover { transform: none; border-color: var(--em); box-shadow: none; }
+.ni-rank { border-radius: 50%; background: var(--em); color: var(--on-em); }
+.ni-dist { color: var(--cyan-ink); font-weight: 600; }
+.side-ico { border-radius: var(--r-md); background: var(--em-soft); }
+.route-choice { border-radius: var(--r-md); }
+.route-choice:hover { transform: none; }
+.navigation-summary { border-radius: var(--r-md); background: var(--em-soft); }
+.navigation-stats > div { border-radius: var(--r-md); }
+.leaflet-container { background: var(--card-2); }
+.leaflet-popup-content-wrapper { border-radius: var(--r-md); box-shadow: var(--shadow-lg); border: 1px solid var(--line); }
+.leaflet-popup-tip { box-shadow: none; }
+
+/* Tooltip */
+[role="tooltip"], .tooltip, .leaflet-tooltip { background: #14532D; color: #fff; border: 0; border-radius: var(--r-sm); font-size: 0.75rem; }
+
+/* Dialog laporan */
+.rdialog { border-radius: var(--r-lg); box-shadow: var(--shadow-lg); border: 1px solid var(--line); }
+
+/* Kartu statistik besar: angka Merriweather 900 */
+.hero-stats dd { color: var(--em-ink); }
+
+/* Gerak halus: hanya opacity/transform */
+.quick-card, .rcard, .edu-card { transition: border-color 0.2s, box-shadow 0.2s; }
+
+/* Input di dalam kolom pencarian menyatu dengan wadahnya */
+.hero-search input, .map-search input,
+:root[data-theme="dark"] .hero-search input, :root[data-theme="dark"] .map-search input {
+  background: transparent; color: inherit; border: 0; box-shadow: none; border-radius: 0;
+}
+
+/* Hiasan latar hero dihapus (desain flat) */
+.hero-visual::before { display: none; }

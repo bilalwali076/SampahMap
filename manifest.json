@@ -1,0 +1,23 @@
+{
+  "name": "SampahMap Palembang",
+  "short_name": "SampahMap",
+  "description": "Peta lingkungan dan pelaporan sampah liar Kota Palembang.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F0FDF4",
+  "theme_color": "#166534",
+  "icons": [
+    {
+      "src": "icon192.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

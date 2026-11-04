@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F0FDF4">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Laporkan titik pembuangan sampah liar di Kota Palembang melalui SampahMap.">
+  <title>Laporkan Sampah Liar | SampahMap Palembang</title>
+  <script>(function(){try{var t=localStorage.getItem('sm-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)}catch(e){}})()</script>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon192.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://a.tile.openstreetmap.org">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Raleway:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Raleway:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap"></noscript>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="lapor.css">
+  <link rel="stylesheet" href="greenearth.css">
+</head>
+<body>
+  <a class="sr-only" href="#main">Lewati ke konten utama</a>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-inner glass">
+      <a class="brand" href="index.html" aria-label="SampahMap Palembang, beranda">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand-text">SampahMap<small>Palembang</small></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Navigasi utama">
+        <a class="nav-link" href="peta.html">Peta</a>
+        <a class="nav-link" href="edukasi.html">Edukasi</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" id="installAppBtn" class="btn btn-ghost btn-install" data-install hidden>
+          <svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Install
+        </button>
+        <button type="button" class="icon-btn theme-toggle" data-theme-toggle aria-label="Ganti ke mode gelap" aria-pressed="false">
+          <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg><svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+        </button>
+        <a class="btn btn-primary btn-sm nav-cta" href="lapor.html" aria-current="page">Laporkan Sampah <svg class="i arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <button type="button" id="menuButton" class="icon-btn" aria-label="Buka menu" aria-expanded="false" aria-controls="sideMenu">
+          <svg class="i" aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DRAWER MENU -->
+  <div id="menuOverlay" class="menu-overlay"></div>
+  <aside id="sideMenu" class="side-menu" aria-label="Menu navigasi">
+    <div class="side-menu-header">
+      <a class="brand" href="index.html" aria-label="SampahMap Palembang, beranda">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand-text">SampahMap<small>Palembang</small></span>
+      </a>
+      <button type="button" id="closeMenuButton" class="icon-btn" aria-label="Tutup menu"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+
+    <p class="side-menu-label">Jelajahi</p>
+    <a href="index.html" class="side-menu-link"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg><span>Beranda</span><svg class="i go" aria-hidden="true"><use href="#i-chevron"/></svg></a>
+    <a href="peta.html" class="side-menu-link"><svg class="i" aria-hidden="true"><use href="#i-map"/></svg><span>Peta</span><svg class="i go" aria-hidden="true"><use href="#i-chevron"/></svg></a>
+    <a href="edukasi.html" class="side-menu-link"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg><span>Edukasi</span><svg class="i go" aria-hidden="true"><use href="#i-chevron"/></svg></a>
+
+    <p class="side-menu-label">Informasi</p>
+    <a href="tentang.html" class="side-menu-link"><svg class="i" aria-hidden="true"><use href="#i-info"/></svg><span>Tentang SampahMap</span><svg class="i go" aria-hidden="true"><use href="#i-chevron"/></svg></a>
+
+    <div class="side-menu-foot">
+      <button type="button" class="btn btn-ghost btn-block" data-install hidden><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Install aplikasi</button>
+    </div>
+  </aside>
+
+  <main id="main" class="container report-container">
+
+
+    <header class="page-head">
+      <h1>Laporkan sampah liar</h1>
+      <p>Bantu jaga Palembang tetap bersih. Tandai lokasinya, ceritakan kondisinya, dan kirim. Setiap laporan yang berhasil dikirim tersimpan dalam sistem SampahMap Palembang.</p>
+    </header>
+
+    <div class="report-layout">
+
+      <!-- FORMULIR LAPORAN -->
+      <section class="report-card glass" aria-labelledby="formTitle">
+        <h2 id="formTitle" class="sr-only">Formulir laporan</h2>
+
+        <form id="reportForm" novalidate>
+
+          <fieldset class="form-block">
+            <legend><svg class="i" aria-hidden="true"><use href="#i-user"/></svg> Tentang laporan</legend>
+
+            <div class="form-group">
+              <label for="reporterName">Nama pelapor</label>
+              <input type="text" id="reporterName" name="reporterName" placeholder="Masukkan nama Anda" maxlength="100" required autocomplete="name">
+            </div>
+
+            <div class="form-group">
+              <label for="reportType">Jenis laporan</label>
+              <select id="reportType" name="reportType" required>
+                <option value="">Pilih jenis laporan</option>
+                <option value="Sampah liar">Sampah liar</option>
+                <option value="Sampah menumpuk">Sampah menumpuk</option>
+                <option value="Pembakaran sampah">Pembakaran sampah</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-block">
+            <legend><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg> Lokasi</legend>
+
+            <div class="form-group">
+              <label for="reportAddress">Alamat atau lokasi sampah</label>
+              <input type="text" id="reportAddress" name="reportAddress" placeholder="Pilih lokasi melalui peta atau ketik alamat" maxlength="250" required autocomplete="off">
+
+              <button type="button" id="useCurrentLocation" class="btn btn-ghost btn-pick">
+                <svg class="i" aria-hidden="true"><use href="#i-target"/></svg> Pilih lokasi dari peta
+              </button>
+
+              <small id="locationMessage" class="help-text">Pilih titik lokasi pada peta agar koordinat laporan lebih akurat.</small>
+
+              <!-- KOORDINAT (HIDDEN) -->
+              <input type="hidden" id="latitude" name="latitude">
+              <input type="hidden" id="longitude" name="longitude">
+
+              <!-- PEMILIHAN LOKASI MAP -->
+              <section id="locationPicker" class="location-picker" hidden>
+                <div class="picker-head">
+                  <div>
+                    <h3>Pilih titik lokasi laporan</h3>
+                    <p>Gunakan GPS atau ketuk titik pada peta tempat sampah ditemukan. Penanda bisa digeser.</p>
+                  </div>
+                  <button type="button" id="getCurrentGPS" class="btn btn-glass btn-sm"><svg class="i" aria-hidden="true"><use href="#i-locate"/></svg> Gunakan GPS saya</button>
+                </div>
+
+                <div id="reportMap" role="application" aria-label="Peta pemilihan lokasi laporan"></div>
+
+                <p id="selectedCoordinates" class="coordinates-text">Belum ada lokasi yang dipilih.</p>
+
+                <div class="location-actions">
+                  <button type="button" id="confirmLocation" class="btn btn-primary" disabled>Gunakan lokasi ini</button>
+                  <button type="button" id="cancelLocation" class="btn btn-ghost">Batal</button>
+                </div>
+              </section>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-block">
+            <legend><svg class="i" aria-hidden="true"><use href="#i-camera"/></svg> Kondisi di lapangan</legend>
+
+            <div class="form-group">
+              <label for="reportDescription">Deskripsi laporan</label>
+              <textarea id="reportDescription" name="reportDescription" rows="4" maxlength="1000" placeholder="Jelaskan kondisi dan perkiraan jumlah sampah..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="reportPhoto">Foto sampah <span class="optional">(opsional)</span></label>
+              <input type="file" id="reportPhoto" name="reportPhoto" accept="image/*" class="file-input">
+              <small class="help-text">Foto dikompresi otomatis sampai di bawah 1 MB. Format JPG, PNG, atau WebP.</small>
+              <img id="photoPreview" alt="Pratinjau foto laporan" hidden>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block btn-submit">Kirim laporan</button>
+
+          <!-- PESAN STATUS LAPORAN -->
+          <div id="reportMessage" role="status" aria-live="polite" class="report-message"></div>
+        </form>
+      </section>
+
+      <!-- PANEL SAMPING -->
+      <aside class="report-aside" aria-label="Panduan melapor">
+        <section class="aside-card glass">
+          <h2>Laporan yang mudah ditindak</h2>
+          <ul class="tips">
+            <li><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg><div><strong>Titik yang tepat</strong><span>Geser penanda ke tumpukan sampahnya, bukan ke jalan terdekat.</span></div></li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-camera"/></svg><div><strong>Foto yang jelas</strong><span>Ambil dari jarak yang menunjukkan ukuran tumpukan dan sekitarnya.</span></div></li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-info"/></svg><div><strong>Patokan di sekitar</strong><span>Sebut pasar, jembatan, atau warung terdekat agar petugas mudah menemukan.</span></div></li>
+          </ul>
+        </section>
+
+        <section class="aside-card glass">
+          <h2>Privasi pelapor</h2>
+          <p>Di daftar laporan publik, nama Anda hanya tampil sebagai nama depan.</p>
+          <a class="btn btn-glass btn-sm" href="peta.html">Lihat di peta <svg class="i arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </section>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html" aria-label="SampahMap Palembang, beranda">
+            <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-logo"/></svg>
+            <span class="brand-text">SampahMap<small>Palembang</small></span>
+          </a>
+          <p class="footer-blurb">Platform pemetaan dan pelaporan sampah untuk Kota Palembang. Temukan TPS, laporkan sampah liar, jaga lingkungan bersama.</p>
+        </div>
+        <nav class="footer-links" aria-label="Tautan footer">
+          <a href="peta.html">Peta</a>
+          <a href="edukasi.html">Edukasi</a>
+          <a href="lapor.html">Buat laporan</a>
+          <a href="tentang.html">Tentang</a>
+        </nav>
+      </div>
+      <p class="footer-bottom">&copy; <span data-year>2026</span> SampahMap Palembang. Data peta &copy; kontributor OpenStreetMap.</p>
+    </div>
+  </footer>
+
+  <!-- NAVIGASI BAWAH (mobile) -->
+  <nav class="bottom-nav glass" aria-label="Navigasi bawah">
+    <a class="nav-item" href="index.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg><small>Beranda</small></a>
+    <a class="nav-item" href="peta.html"><svg class="i" aria-hidden="true"><use href="#i-map"/></svg><small>Peta</small></a>
+    <a class="nav-fab" href="lapor.html" aria-label="Laporkan sampah" aria-current="page"><span class="fab-icon"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span><small>Lapor</small></a>
+    <a class="nav-item" href="edukasi.html"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg><small>Edukasi</small></a>
+    <a class="nav-item" href="tentang.html"><svg class="i" aria-hidden="true"><use href="#i-info"/></svg><small>Tentang</small></a>
+  </nav>
+
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="config.js"></script>
+  <script defer src="theme.js"></script>
+  <script defer src="lapor.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+/* =========================================================
+   SampahMap Palembang — Halaman Buat Laporan (form)
+   ========================================================= */
+
+.report-container { padding-block: clamp(1.5rem, 4vw, 3.5rem) 1rem; }
+
+.page-head { max-width: 62ch; margin-bottom: clamp(1.5rem, 3vw, 2.25rem); }
+.page-head h1 { font-size: clamp(2rem, 4.6vw, 3.25rem); letter-spacing: -0.035em; }
+.page-head p { margin-top: 0.9rem; color: var(--ink-2); font-size: 1.0625rem; }
+
+.report-layout { display: grid; gap: 1.25rem; align-items: start; }
+@media (min-width: 980px) {
+  .report-layout { grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr); }
+  .report-aside { position: sticky; top: calc(var(--nav-h) + 32px); }
+}
+
+.report-card { padding: clamp(1.25rem, 3.5vw, 2.25rem); border-radius: var(--r-xl); box-shadow: var(--shadow-md); }
+.report-aside { display: grid; gap: 1.25rem; }
+.aside-card { padding: 1.5rem; border-radius: var(--r-xl); }
+.aside-card h2 { font-size: 1.125rem; margin-bottom: 1rem; }
+.aside-card > p { color: var(--muted); font-size: 0.9375rem; margin-bottom: 1rem; }
+
+.tips { display: grid; gap: 1rem; }
+.tips li { display: flex; gap: 0.85rem; }
+.tips .i {
+  width: 38px; height: 38px;
+  padding: 9px;
+  flex: none;
+  border-radius: 8px;
+  background: var(--em-soft);
+  color: var(--em-ink);
+}
+.tips strong { display: block; font-size: 0.9375rem; }
+.tips span { display: block; margin-top: 2px; color: var(--muted); font-size: 0.875rem; line-height: 1.5; }
+
+/* ---------- Form ---------- */
+.form-block { display: block; margin: 0 0 1.9rem; padding: 0; border: 0; min-width: 0; }
+.form-block legend {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  margin: 0 0 1.25rem;
+  padding: 0 0 0.85rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.form-block legend .i { color: var(--em-ink); }
+.form-block .form-group + .form-group { margin-top: 1.1rem; }
+
+.form-group { display: grid; gap: 0.5rem; }
+.form-group label { font-size: 0.875rem; font-weight: 700; }
+.optional { color: var(--muted); font-weight: 500; }
+.help-text, .form-group small { color: var(--muted); font-size: 0.8125rem; line-height: 1.5; }
+.help-text[data-type="success"] { color: var(--em-ink); }
+.help-text[data-type="error"] { color: var(--rose-ink); }
+
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group textarea { resize: vertical; min-height: 120px; line-height: 1.55; }
+.form-group input::placeholder, .form-group textarea::placeholder { color: var(--muted); opacity: 0.85; }
+.form-group input:hover, .form-group select:hover, .form-group textarea:hover { border-color: var(--line-strong); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none;
+  border-color: var(--em);
+  box-shadow: 0 0 0 4px rgba(22, 101, 52, 0.2);
+}
+.form-group select {
+  appearance: none;
+  padding-right: 2.6rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+}
+
+.file-input {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1.5px dashed var(--line-strong);
+  border-radius: 8px;
+  background: var(--card-2);
+  color: var(--muted);
+  font-size: 0.875rem;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.file-input:hover { border-color: var(--em); background: var(--em-soft); }
+.file-input::file-selector-button {
+  margin-right: 0.9rem;
+  padding: 0.55rem 1rem;
+  border: 0;
+  border-radius: 8px;
+  background: var(--em);
+  color: var(--on-em);
+  font-weight: 700;
+  cursor: pointer;
+}
+#photoPreview {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.btn-pick { justify-self: start; }
+
+/* ---------- Pemilih lokasi ---------- */
+.location-picker {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 0.4rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card-2);
+  animation: pickerIn 0.4s var(--ease);
+}
+@keyframes pickerIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+.picker-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+.picker-head h3 { font-size: 1rem; }
+.picker-head p { margin-top: 0.25rem; max-width: 46ch; color: var(--muted); font-size: 0.8125rem; }
+#reportMap {
+  height: clamp(280px, 48vh, 380px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.coordinates-text { font-size: 0.8125rem; font-weight: 650; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.location-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+/* ---------- Pesan status ---------- */
+.btn-submit { margin-top: 0.5rem; }
+.report-message {
+  margin-top: 1rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card-2);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.report-message:empty { display: none; }
+.report-message[data-type="success"] { background: var(--em-soft); border-color: var(--line-strong); color: var(--em-ink); }
+.report-message[data-type="error"] { background: var(--rose-soft); border-color: rgba(220, 38, 38, 0.35); color: var(--rose-ink); }
+.report-message[data-type="info"] { background: var(--cyan-soft); border-color: rgba(2, 132, 199, 0.35); color: var(--cyan-ink); }
+
+/* Marker pemilih lokasi */
+.sm-picker-wrap { background: none; border: 0; }

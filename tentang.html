@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F0FDF4">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Mengenal SampahMap Palembang, aplikasi peta lingkungan dan pelaporan sampah liar.">
+  <title>Tentang Kami | SampahMap Palembang</title>
+  <script>(function(){try{var t=localStorage.getItem('sm-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)}catch(e){}})()</script>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon192.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Raleway:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Raleway:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap"></noscript>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="tentang.css">
+  <link rel="stylesheet" href="greenearth.css">
+</head>
+<body>
+  <a class="sr-only" href="#main">Lewati ke konten utama</a>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-inner glass">
+      <a class="brand" href="index.html" aria-label="SampahMap Palembang, beranda">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand-text">SampahMap<small>Palembang</small></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Navigasi utama">
+        <a class="nav-link" href="peta.html">Peta</a>
+        <a class="nav-link" href="edukasi.html">Edukasi</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" id="installAppBtn" class="btn btn-ghost btn-install" data-install hidden>
+          <svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Install
+        </button>
+        <button type="button" class="icon-btn theme-toggle" data-theme-toggle aria-label="Ganti ke mode gelap" aria-pressed="false">
+          <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg><svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+        </button>
+        <a class="btn btn-primary btn-sm nav-cta" href="lapor.html">Laporkan Sampah <svg class="i arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <button type="button" id="menuButton" class="icon-btn" aria-label="Buka menu" aria-expanded="false" aria-controls="sideMenu">
+          <svg class="i" aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DRAWER MENU -->
+  <div id="menuOverlay" class="menu-overlay"></div>
+  <aside id="sideMenu" class="side-menu" aria-label="Menu navigasi">
+    <div class="side-menu-header">
+      <a class="brand" href="index.html" aria-label="SampahMap Palembang, beranda">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand-text">SampahMap<small>Palembang</small></span>
+      </a>
+      <button type="button" id="closeMenuButton" class="icon-btn" aria-label="Tutup menu"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+
+    <p class="side-menu-label">Jelajahi</p>
+    <a href="index.html" class="side-menu-link"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg><span>Beranda</span><svg class="i go" aria-hidden="true"><use href="#i-chevron"/></svg></a>
+    <a href="peta.html" class="side-menu-link"><svg class="i" aria-hidden="true"><use href="#i-map"/></svg><span>Peta</span><svg class="i go" aria-hidden="true"><use href="#i-chevron"/></svg></a>
+    <a href="edukasi.html" class="side-menu-link"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg><span>Edukasi</span><svg class="i go" aria-hidden="true"><use href="#i-chevron"/></svg></a>
+
+    <p class="side-menu-label">Informasi</p>
+    <a href="tentang.html" class="side-menu-link active" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-info"/></svg><span>Tentang SampahMap</span><svg class="i go" aria-hidden="true"><use href="#i-chevron"/></svg></a>
+
+    <div class="side-menu-foot">
+      <button type="button" class="btn btn-ghost btn-block" data-install hidden><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Install aplikasi</button>
+    </div>
+  </aside>
+
+  <main id="main" class="container">
+
+    <!-- HERO -->
+    <section class="about-hero">
+      <div class="about-copy">
+        <h1>Mengenal lebih dekat SampahMap Palembang</h1>
+        <p>Bersama membangun lingkungan yang lebih bersih melalui pemanfaatan teknologi informasi.</p>
+        <div class="about-actions">
+          <a class="btn btn-primary btn-lg" href="peta.html">Jelajahi peta TPS <svg class="i arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost btn-lg" href="lapor.html">Buat laporan</a>
+        </div>
+      </div>
+
+      <aside class="about-card glass" aria-labelledby="inventoryTitle">
+        <div class="about-card-head">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-logo"/></svg>
+          <div>
+            <h2 id="inventoryTitle">Yang tersedia di peta</h2>
+            <p><span id="aboutTotal">36</span> titik di Kota Palembang</p>
+          </div>
+        </div>
+        <ul class="inventory" id="inventory"></ul>
+      </aside>
+    </section>
+
+    <!-- APA ITU -->
+    <section class="about-intro glass">
+      <div class="about-intro-ico"><svg class="i" aria-hidden="true"><use href="#i-recycle"/></svg></div>
+      <div>
+        <h2>Apa itu SampahMap?</h2>
+        <p>SampahMap Palembang adalah aplikasi berbasis web yang membantu masyarakat menemukan lokasi Tempat Penampungan Sementara (TPS) di Kota Palembang.</p>
+        <p>Selain menyediakan informasi lokasi lewat peta digital, aplikasi ini memiliki fitur pelaporan untuk membantu warga melaporkan pembuangan sampah liar di lingkungan sekitar.</p>
+        <p class="about-quote">Teknologi untuk lingkungan yang lebih bersih dan masyarakat yang lebih peduli.</p>
+      </div>
+    </section>
+
+    <!-- TUJUAN -->
+    <section class="goals" aria-labelledby="goalsTitle">
+      <div class="section-head">
+        <div>
+          <h2 id="goalsTitle">Mengapa SampahMap dibuat?</h2>
+          <p>Menghadirkan kemudahan informasi dan mendorong kepedulian masyarakat terhadap lingkungan.</p>
+        </div>
+      </div>
+      <div class="goal-grid">
+        <article class="goal-card" style="--c:#16A34A">
+          <span class="goal-icon"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></span>
+          <h3>Informasi lokasi TPS</h3>
+          <p>Membantu masyarakat menemukan lokasi TPS melalui peta digital.</p>
+        </article>
+        <article class="goal-card" style="--c:#0284C7">
+          <span class="goal-icon"><svg class="i" aria-hidden="true"><use href="#i-locate"/></svg></span>
+          <h3>Memudahkan navigasi</h3>
+          <p>Memberikan rute agar masyarakat lebih mudah menjangkau TPS.</p>
+        </article>
+        <article class="goal-card" style="--c:#D97706">
+          <span class="goal-icon"><svg class="i" aria-hidden="true"><use href="#i-clipboard"/></svg></span>
+          <h3>Pelaporan sampah liar</h3>
+          <p>Memfasilitasi warga untuk melaporkan lokasi pembuangan sampah liar.</p>
+        </article>
+        <article class="goal-card" style="--c:#4D7C0F">
+          <span class="goal-icon"><svg class="i" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+          <h3>Kepedulian lingkungan</h3>
+          <p>Mendorong kesadaran bersama untuk menjaga kebersihan lingkungan.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TIM -->
+    <section class="about-team glass">
+      <div class="team-ico"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg></div>
+      <div>
+        <h2>Tim pengembang SampahMap Palembang</h2>
+        <p>SampahMap dikembangkan sebagai pemanfaatan teknologi informasi untuk memberi solusi atas permasalahan sampah di lingkungan masyarakat.</p>
+        <p>Kami berharap aplikasi ini menjadi sarana informasi yang bermanfaat dan mendorong partisipasi masyarakat menjaga kebersihan Kota Palembang.</p>
+      </div>
+    </section>
+
+    <!-- PENUTUP -->
+    <section class="about-closing">
+      <h2>Palembang lebih bersih, mulai dari kita.</h2>
+      <p>Lingkungan yang bersih bukan hanya tanggung jawab satu orang, tetapi tanggung jawab kita bersama.</p>
+      <a class="btn btn-primary btn-lg" href="peta.html">Mulai jelajahi peta <svg class="i arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html" aria-label="SampahMap Palembang, beranda">
+            <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-logo"/></svg>
+            <span class="brand-text">SampahMap<small>Palembang</small></span>
+          </a>
+          <p class="footer-blurb">Platform pemetaan dan pelaporan sampah untuk Kota Palembang. Temukan TPS, laporkan sampah liar, jaga lingkungan bersama.</p>
+        </div>
+        <nav class="footer-links" aria-label="Tautan footer">
+          <a href="peta.html">Peta</a>
+          <a href="edukasi.html">Edukasi</a>
+          <a href="lapor.html">Buat laporan</a>
+          <a href="tentang.html">Tentang</a>
+        </nav>
+      </div>
+      <p class="footer-bottom">&copy; <span data-year>2026</span> SampahMap Palembang. Data peta &copy; kontributor OpenStreetMap.</p>
+    </div>
+  </footer>
+
+  <!-- NAVIGASI BAWAH (mobile) -->
+  <nav class="bottom-nav glass" aria-label="Navigasi bawah">
+    <a class="nav-item" href="index.html"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg><small>Beranda</small></a>
+    <a class="nav-item" href="peta.html"><svg class="i" aria-hidden="true"><use href="#i-map"/></svg><small>Peta</small></a>
+    <a class="nav-fab" href="lapor.html" aria-label="Laporkan sampah"><span class="fab-icon"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span><small>Lapor</small></a>
+    <a class="nav-item" href="edukasi.html"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg><small>Edukasi</small></a>
+    <a class="nav-item is-active" href="tentang.html" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-info"/></svg><small>Tentang</small></a>
+  </nav>
+
+  <script defer src="theme.js"></script>
+  <script defer src="tps-data.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var list = document.getElementById("inventory");
+      if (!list || typeof tpsLocations === "undefined") return;
+      var cats = {
+        tps: ["TPS", "#166534", "trash"], tpa: ["TPA", "#0284c7", "factory"], tpst: ["TPST", "#92400E", "layers"],
+        banksampah: ["Bank Sampah", "#4D7C0F", "recycle"], fasilitas: ["Fasilitas kebersihan", "#78716C", "building"]
+      };
+      var counts = {}, total = 0;
+      tpsLocations.filter(Boolean).forEach(function (l) { var k = cats[l.type] ? l.type : "tps"; counts[k] = (counts[k] || 0) + 1; total++; });
+      document.getElementById("aboutTotal").textContent = total;
+      Object.keys(cats).forEach(function (k) {
+        var li = document.createElement("li");
+        li.style.setProperty("--c", cats[k][1]);
+        li.innerHTML = '<span class="inv-ico">' + window.SM.iconHTML(cats[k][2]) + '</span><span class="inv-name"></span><strong></strong>';
+        li.querySelector(".inv-name").textContent = cats[k][0];
+        li.querySelector("strong").textContent = counts[k] || 0;
+        list.appendChild(li);
+      });
+    });
+  </script>
+</body>
+
+</html>
