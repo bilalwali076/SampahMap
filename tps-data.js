@@ -1,226 +1,405 @@
-
-const tpsLocations = [
-  {
-    name: "TPS Talang Aman",
-    position: [-2.9463, 104.7538],
-    type: "tps",
-    description: "Jl. Perikanan 4, Talang Aman, Kec. Kemuning"
-  },
-  {
-    name: "TPS Sultan Syahrir",
-    position: [-2.9735, 104.7781],
-    type: "tps",
-    description: "Jl. Sutan Syahrir No.1497, 5 Ilir, Kec. Ilir Timur II"
-  },
-  {
-    name: "TPS Pasar Sako Mandiri",
-    position: [-2.9360, 104.7925],
-    type: "tps",
-    description: "Kawasan Pasar Sako, Sako, Kec. Sako"
-  },
-  {
-    name: "TPS Bukit Lama",
-    position: [-2.9862, 104.7335],
-    type: "tps",
-    description: "Jl. Puncak Sekuning, Bukit Lama, Kec. Ilir Barat I"
-  },
-  {
-    name: "TPS Lemabang (Pasar Lemabang)",
-    position: [-2.9721, 104.7745],
-    type: "tps",
-    description: "Kawasan Pasar Lemabang, Kec. Ilir Timur II"
-  },
-  {
-    name: "TPS Pasar KM 5",
-    position: [-2.9515, 104.7388],
-    type: "tps",
-    description: "Jl. Kolonel Atmo / Pasar Cinde, Kec. Ilir Timur I"
-  },
-  {
-    name: "TPS Jakabaring",
-    position: [-3.0185, 104.7892],
-    type: "tps",
-    description: "Area Kompleks Jakabaring Sport City / Kec. Jakabaring"
-  },
-  {
-    name: "TPS Pasar Plaju",
-    position: [-2.9984, 104.8211],
-    type: "tps",
-    description: "Kawasan Pasar Plaju, Kec. Plaju"
-  },
-  {
-    name: "TPA Sukawitan (Pengolahan Akhir)",
-    position: [-2.9248, 104.7852],
-    type: "tpa",
-    description: "Tempat Pembuangan Akhir Sukawitan, Kec. Sukarami"
-  },
-
-  {
-    name: "TPS Kota Baru",
-    position: [-2.9328, 104.7210],
-    type: "tps",
-    description: "Lrg. Kota Baru, Srijaya, Kec. Alang-Alang Lebar, Kota Palembang"
-  },
-  {
-    name: "TPS Pulau Layang",
-    position: [-2.9984, 104.8115],
-    type: "tps",
-    description: "Jl. Kapten Robani Kadir No.15, Talang Putri, Kec. Plaju, Kota Palembang"
-  },
-  {
-    name: "Tps Pancasila",
-    position: [-3.0125, 104.7250],
-    type: "tps",
-    description: "Karang Anyar, Kec. Gandus, Kota Palembang, Sumatera Selatan"
-  },
-  {
-    name: "TPS Panca Usaha",
-    position: [-2.9936, 104.7681],
-    type: "tps",
-    description: "Jl. Panca Usaha, 5 Ulu, Kecamatan Seberang Ulu I, Kota Palembang"
-  },
-  {
-    name: "Tempat Pembuangan Sampah Talang Aman",
-    position: [-2.9645, 104.7432],
-    type: "tps",
-    description: "Jl. Perikanan 4, Talang Aman, Kec. Kemuning, Kota Palembang"
-  },
-  {
-    name: "TPS Nurul Ma'unah",
-    position: [-3.0245, 104.7562],
-    type: "tps",
-    description: "Kemas Rindo, Kec. Kertapati, Kota Palembang, Sumatera Selatan 30257"
-  },
-  {
-    name: "TPS 3R Sako",
-    position: [-2.9210, 104.7785],
-    type: "tps",
-    description: "Jl. Lebak Rejo, Sako, Kec. Sako, Kota Palembang"
-  },
-  {
-    name: "TPS Lemabang",
-    position: [-2.9680, 104.7765],
-    type: "tps",
-    description: "Jl. RE Martadinata, Lemabang, Kec. Ilir Tim. II, Kota Palembang"
-  },
-  {
-    name: "TPS Demang Lebar Daun",
-    position: [-2.9750, 104.7255],
-    type: "tps",
-    description: "Jl. Demang Lebar Daun, Lorok Pakjo, Kec. Ilir Bar. I, Kota Palembang"
-  },
-  {
-    name: "TPS Soak Simbur",
-    position: [-2.9550, 104.7120],
-    type: "tps",
-    description: "Sukajadi, Kec. Sukarami, Kota Palembang"
-  },
-
-  // --- KELOMPOK TPA (Tempat Pemrosesan Akhir) ---
+// ==========================================
+// 1. KELOMPOK TPA (Tempat Pemrosesan Akhir)
+// ==========================================
+const tpaLocations = [
   {
     name: "TPA Sukawinatan",
     position: [-2.9372, 104.7395],
     type: "tpa",
-    description: "Jl. TPA Sukawinatan, Sukarami, Kec. Sukarami, Kota Palembang"
+    description: "Jl. TPA Sukawinatan, Sukajaya, Kec. Sukarami, Kota Palembang, Sumatera Selatan 30961"
   },
   {
-    name: "TPA Karya Jaya",
+    name: "TPA Karyajaya",
     position: [-3.0415, 104.7082],
     type: "tpa",
     description: "Karya Jaya, Kec. Kertapati, Kota Palembang, Sumatera Selatan 30259"
   },
   {
-    name: "Tempat Pembuangan Akhir Puncak Sekuning",
-    position: [-2.9780, 104.7352],
+    name: "TPA Gandus",
+    position: [-3.0150, 104.7200],
     type: "tpa",
-    description: "Jl. Puncak Sekuning, Bukit Lama, Kec. Ilir Bar. I, Kota Palembang"
-  },
+    description: "Gandus, Kec. Gandus, Kota Palembang, Sumatera Selatan"
+  }
+];
 
-  // --- KELOMPOK TPST & FASILITAS PENGOLAHAN ---
+// ==========================================
+// 2. KELOMPOK TPS & FASILITAS PENDUKUNG
+// ==========================================
+const tpsLocations = [
   {
-    name: "PSEL Kota Palembang (Pembangkit Listrik Tenaga Sampah)",
+    name: "TPS Pulau Layang",
+    position: [-2.9984, 104.8115],
+    type: "tps",
+    description: "Jl. Kapten Robani Kadir No.15, Talang Putri, Kec. Plaju, Kota Palembang, Sumatera Selatan 30119"
+  },
+  {
+    name: "TPS Talang Aman",
+    position: [-2.9645, 104.7432],
+    type: "tps",
+    description: "Jl. Perikanan 4, Talang Aman, Kec. Kemuning, Kota Palembang, Sumatera Selatan 30151"
+  },
+  {
+    name: "TPS Panca Usaha",
+    position: [-2.9936, 104.7681],
+    type: "tps",
+    description: "Jl. Panca Usaha 2563-2533, 5 Ulu, Kecamatan Seberang Ulu I, Kota Palembang, Sumatera Selatan 30267"
+  },
+  {
+    name: "TPS Lemabang",
+    position: [-2.9680, 104.7765],
+    type: "tps",
+    description: "Jl. Bambang Utoyo No.110a, Kelurahan 3 Ilir, Kec. Ilir Tim. II, Kota Palembang, Sumatera Selatan 30116"
+  },
+  {
+    name: "TPS Way Hitam (Tempat Pembuangan Sampah Sementara)",
+    position: [-2.9750, 104.7120],
+    type: "tps",
+    description: "Jl. Kapten A. Anwar Arsyad, Siring Agung, Kec. Ilir Bar. I, Kota Palembang, Sumatera Selatan 30138"
+  },
+  {
+    name: "TPS Pancasila",
+    position: [-3.0125, 104.7250],
+    type: "tps",
+    description: "Karang Anyar, Kec. Gandus, Kota Palembang, Sumatera Selatan 30148"
+  },
+  {
+    name: "TPS Puncak Sekuning",
+    position: [-2.9780, 104.7352],
+    type: "tps",
+    description: "Jl. Puncak Sekuning, Bukit Lama, Kec. Ilir Bar. I, Kota Palembang, Sumatera Selatan 30128"
+  },
+  {
+    name: "TPS Sultan Syahrir",
+    position: [-2.9800, 104.7700],
+    type: "tps",
+    description: "Jl. Sutan Syahrir No.1497, 5 Ilir, Kec. Ilir Timur II, Kota Palembang, Sumatera Selatan 30114"
+  },
+  {
+    name: "TPS Sampah Pasar Sako Mandiri",
+    position: [-2.9210, 104.7785],
+    type: "tps",
+    description: "Sako, Kec. Sako, Kota Palembang, Sumatera Selatan 30961"
+  },
+  {
+    name: "UPTD Kebersihan Kecamatan Ilir Timur I",
+    position: [-2.9715, 104.7540],
+    type: "fasilitas",
+    description: "Jl. Bay Salim, 20 Ilir D. I, Kec. Ilir Timur I, Kota Palembang, Sumatera Selatan 30126"
+  },
+  {
+    name: "TPS Kebon Sirih",
+    position: [-2.9612, 104.7925],
+    type: "tps",
+    description: "Jl. Said Toyib, Bukit Sangkal, Kec. Kalidoni, Kota Palembang, Sumatera Selatan 30163"
+  },
+  {
+    name: "TPS Pasar Gubah",
+    position: [-2.9720, 104.7400],
+    type: "tps",
+    description: "Jl. S. M. Mansyur, 26 Ilir, Kec. Bukit Kecil, Kota Palembang, Sumatera Selatan 30128"
+  },
+  {
+    name: "TPS Rajawali",
+    position: [-2.9690, 104.7700],
+    type: "tps",
+    description: "Jl. Rajawali, 9 Ilir, Kec. Ilir Timur II, Kota Palembang, Sumatera Selatan 30114"
+  },
+  {
+    name: "TPS Depo Transfer 3 Ilir",
+    position: [-2.9685, 104.7750],
+    type: "tps",
+    description: "Jl. Mayor Memet Sastrawirya, 3 Ilir, Kec. Ilir Timur II, Kota Palembang, Sumatera Selatan 30116"
+  },
+  {
+    name: "TPS Macan Lindungan",
+    position: [-2.9850, 104.7100],
+    type: "tps",
+    description: "Jl. Macan Lindungan, Bukit Baru, Kec. Ilir Barat I, Kota Palembang, Sumatera Selatan 30139"
+  },
+  {
+    name: "TPS Jakabaring (Dekat Pasar Induk)",
+    position: [-3.0100, 104.7800],
+    type: "tps",
+    description: "Jl. Pangeran Ratu, 15 Ulu, Kec. Jakabaring, Kota Palembang, Sumatera Selatan 30267"
+  }
+];
+
+// ==========================================
+// 3. KELOMPOK TPST & FASILITAS PENGOLAHAN
+// ==========================================
+const tpstLocations = [
+  {
+    name: "PSEL Kota Palembang",
     position: [-3.0310, 104.7125],
     type: "tpst",
-    description: "Jl. Mayor Jend. Satibi Darwis, Keramasan, Kec. Kertapati, Kota Palembang"
+    description: "Jl. Mayor Jend. Satibi Darwis, Keramasan, Kec. Kertapati, Kota Palembang, Sumatera Selatan 30259"
+  },
+  {
+    name: "Rencana TPST Sukawinatan (Program LSDP Bank Dunia)",
+    position: [-2.9350, 104.7380],
+    type: "tpst",
+    description: "Sukarami, Kota Palembang, Sumatera Selatan"
   },
   {
     name: "Instalasi TPS 3R Kalidoni",
     position: [-2.9612, 104.7925],
     type: "tpst",
-    description: "Kalidoni, Kec. Kalidoni, Kota Palembang, Sumatera Selatan 30163"
-  },
-  {
-    name: "TPST Sematang Borang",
-    position: [-2.9315, 104.8050],
-    type: "tpst",
-    description: "Sematang Borang, Kec. Sematang Borang, Kota Palembang"
-  },
-  {
-    name: "TPST Plaju Darat",
-    position: [-3.0040, 104.7890],
-    type: "tpst",
-    description: "Plaju Darat, Kec. Plaju, Kota Palembang"
-  },
-  {
-    name: "UPTD Kebersihan Kec. Ilir Timur I",
-    position: [-2.9715, 104.7540],
-    type: "fasilitas",
-    description: "Jl. Bay Salim, 20 Ilir D. I, Kec. Ilir Tim. I, Kota Palembang"
-  },
+    description: "Kalidoni, Kec. Kalidoni, Kota Palembang, Sumatera Selatan"
+  }
+];
 
-  // --- KELOMPOK BANK SAMPAH ---
+// ==========================================
+// 4. KELOMPOK BANK SAMPAH
+// ==========================================
+const bankSampahLocations = [
   {
     name: "Bank Sampah Indonesia Provinsi Sumatera Selatan",
     position: [-2.9510, 104.7180],
     type: "banksampah",
-    description: "Jl. KM 12 Alang-Alang Lebar, Lorong Kenanga No.015, Sukodadi, Kec. Sukarami, Kota Palembang"
+    description: "Jl. KM 12 Alang - Alang Lebar, Lorong Kenanga No.015, RT.01/RW.01, Sukodadi, Kec. Sukarami, Kota Palembang, Sumatera Selatan 30151"
   },
   {
-    name: "Bank Sampah Kartini",
-    position: [-2.9782, 104.7355],
-    type: "banksampah",
-    description: "Jl. Puncak Sekuning, Bukit Lama, Kec. Ilir Bar. I, Kota Palembang"
-  },
-  {
-    name: "Bank Sampah Hijau Lestari",
-    position: [-2.9650, 104.7435],
-    type: "banksampah",
-    description: "Jl. Perikanan 4, Talang Aman, Kec. Kemuning, Kota Palembang"
-  },
-  {
-    name: "Bank Sampah KGS",
+    name: "Bank Sampah KGS (Kreatif & Daur Ulang)",
     position: [-2.9812, 104.7750],
     type: "banksampah",
-    description: "Jl. Sersan Zaini No.rt. 27, 2 Ilir, Kec. Ilir Tim. II, Kota Palembang"
-  },
-  {
-    name: "Bank Sampah Pelangi (KSE UNSRI)",
-    position: [-2.9450, 104.6980],
-    type: "banksampah",
-    description: "Lrg. Jambu Klutuk No.3, Sukodadi, Kec. Sukarami, Kota Palembang"
+    description: "Jl. Sersan Zaini No. 2819, RT. 27, 2 Ilir, Kec. Ilir Tim. II, Kota Palembang, Sumatera Selatan 30163"
   },
   {
     name: "Bank Sampah Induk Palembang",
     position: [-2.9620, 104.7520],
     type: "banksampah",
-    description: "Jl. Kolonel H. Burlian, Sukarami, Kota Palembang"
+    description: "Jl. Kolonel H. Burlian, Sukarami, Kec. Sukarami, Kota Palembang, Sumatera Selatan"
+  },
+  {
+    name: "Bank Sampah Hijau Lestari",
+    position: [-2.9650, 104.7435],
+    type: "banksampah",
+    description: "Jl. Perikanan 4, Talang Aman, Kec. Kemuning, Kota Palembang, Sumatera Selatan"
+  },
+  {
+    name: "Bank Sampah Pelangi (KSE UNSRI)",
+    position: [-2.9450, 104.6980],
+    type: "banksampah",
+    description: "Lrg. Jambu Klutuk No.3, Sukodadi, Kec. Sukarami, Kota Palembang, Sumatera Selatan"
   },
   {
     name: "Bank Sampah Sejahtera 35 Ilir",
     position: [-2.9910, 104.7510],
     type: "banksampah",
-    description: "35 Ilir, Kec. Ilir Bar. II, Kota Palembang"
+    description: "35 Ilir, Kec. Ilir Bar. II, Kota Palembang, Sumatera Selatan"
   },
   {
     name: "Bank Sampah Bukit Baru",
     position: [-2.9850, 104.7150],
     type: "banksampah",
-    description: "Jl. Tanjung Raeds, Bukit Baru, Kec. Ilir Bar. I, Kota Palembang"
+    description: "Jl. Tanjung Raeds, Bukit Baru, Kec. Ilir Bar. I, Kota Palembang, Sumatera Selatan"
   },
   {
     name: "Bank Sampah Sukarami Mandiri",
     position: [-2.9420, 104.7280],
     type: "banksampah",
-    description: "Sukarami, Kec. Sukarami, Kota Palembang"
+    description: "Sukarami, Kec. Sukarami, Kota Palembang, Sumatera Selatan"
+  }
+];// ==========================================
+// 1. KELOMPOK TPA (Tempat Pemrosesan Akhir)
+// ==========================================
+const tpaLocations = [
+  {
+    name: "TPA Sukawinatan",
+    position: [-2.9372, 104.7395],
+    type: "tpa",
+    description: "Jl. TPA Sukawinatan, Sukajaya, Kec. Sukarami, Kota Palembang, Sumatera Selatan 30961"
+  },
+  {
+    name: "TPA Karyajaya",
+    position: [-3.0415, 104.7082],
+    type: "tpa",
+    description: "Karya Jaya, Kec. Kertapati, Kota Palembang, Sumatera Selatan 30259"
+  },
+  {
+    name: "TPA Gandus",
+    position: [-3.0150, 104.7200],
+    type: "tpa",
+    description: "Gandus, Kec. Gandus, Kota Palembang, Sumatera Selatan"
+  }
+];
+
+// ==========================================
+// 2. KELOMPOK TPS & FASILITAS PENDUKUNG
+// ==========================================
+const tpsLocations = [
+  {
+    name: "TPS Pulau Layang",
+    position: [-2.9984, 104.8115],
+    type: "tps",
+    description: "Jl. Kapten Robani Kadir No.15, Talang Putri, Kec. Plaju, Kota Palembang, Sumatera Selatan 30119"
+  },
+  {
+    name: "TPS Talang Aman",
+    position: [-2.9645, 104.7432],
+    type: "tps",
+    description: "Jl. Perikanan 4, Talang Aman, Kec. Kemuning, Kota Palembang, Sumatera Selatan 30151"
+  },
+  {
+    name: "TPS Panca Usaha",
+    position: [-2.9936, 104.7681],
+    type: "tps",
+    description: "Jl. Panca Usaha 2563-2533, 5 Ulu, Kecamatan Seberang Ulu I, Kota Palembang, Sumatera Selatan 30267"
+  },
+  {
+    name: "TPS Lemabang",
+    position: [-2.9680, 104.7765],
+    type: "tps",
+    description: "Jl. Bambang Utoyo No.110a, Kelurahan 3 Ilir, Kec. Ilir Tim. II, Kota Palembang, Sumatera Selatan 30116"
+  },
+  {
+    name: "TPS Way Hitam (Tempat Pembuangan Sampah Sementara)",
+    position: [-2.9750, 104.7120],
+    type: "tps",
+    description: "Jl. Kapten A. Anwar Arsyad, Siring Agung, Kec. Ilir Bar. I, Kota Palembang, Sumatera Selatan 30138"
+  },
+  {
+    name: "TPS Pancasila",
+    position: [-3.0125, 104.7250],
+    type: "tps",
+    description: "Karang Anyar, Kec. Gandus, Kota Palembang, Sumatera Selatan 30148"
+  },
+  {
+    name: "TPS Puncak Sekuning",
+    position: [-2.9780, 104.7352],
+    type: "tps",
+    description: "Jl. Puncak Sekuning, Bukit Lama, Kec. Ilir Bar. I, Kota Palembang, Sumatera Selatan 30128"
+  },
+  {
+    name: "TPS Sultan Syahrir",
+    position: [-2.9800, 104.7700],
+    type: "tps",
+    description: "Jl. Sutan Syahrir No.1497, 5 Ilir, Kec. Ilir Timur II, Kota Palembang, Sumatera Selatan 30114"
+  },
+  {
+    name: "TPS Sampah Pasar Sako Mandiri",
+    position: [-2.9210, 104.7785],
+    type: "tps",
+    description: "Sako, Kec. Sako, Kota Palembang, Sumatera Selatan 30961"
+  },
+  {
+    name: "UPTD Kebersihan Kecamatan Ilir Timur I",
+    position: [-2.9715, 104.7540],
+    type: "fasilitas",
+    description: "Jl. Bay Salim, 20 Ilir D. I, Kec. Ilir Timur I, Kota Palembang, Sumatera Selatan 30126"
+  },
+  {
+    name: "TPS Kebon Sirih",
+    position: [-2.9612, 104.7925],
+    type: "tps",
+    description: "Jl. Said Toyib, Bukit Sangkal, Kec. Kalidoni, Kota Palembang, Sumatera Selatan 30163"
+  },
+  {
+    name: "TPS Pasar Gubah",
+    position: [-2.9720, 104.7400],
+    type: "tps",
+    description: "Jl. S. M. Mansyur, 26 Ilir, Kec. Bukit Kecil, Kota Palembang, Sumatera Selatan 30128"
+  },
+  {
+    name: "TPS Rajawali",
+    position: [-2.9690, 104.7700],
+    type: "tps",
+    description: "Jl. Rajawali, 9 Ilir, Kec. Ilir Timur II, Kota Palembang, Sumatera Selatan 30114"
+  },
+  {
+    name: "TPS Depo Transfer 3 Ilir",
+    position: [-2.9685, 104.7750],
+    type: "tps",
+    description: "Jl. Mayor Memet Sastrawirya, 3 Ilir, Kec. Ilir Timur II, Kota Palembang, Sumatera Selatan 30116"
+  },
+  {
+    name: "TPS Macan Lindungan",
+    position: [-2.9850, 104.7100],
+    type: "tps",
+    description: "Jl. Macan Lindungan, Bukit Baru, Kec. Ilir Barat I, Kota Palembang, Sumatera Selatan 30139"
+  },
+  {
+    name: "TPS Jakabaring (Dekat Pasar Induk)",
+    position: [-3.0100, 104.7800],
+    type: "tps",
+    description: "Jl. Pangeran Ratu, 15 Ulu, Kec. Jakabaring, Kota Palembang, Sumatera Selatan 30267"
+  }
+];
+
+// ==========================================
+// 3. KELOMPOK TPST & FASILITAS PENGOLAHAN
+// ==========================================
+const tpstLocations = [
+  {
+    name: "PSEL Kota Palembang",
+    position: [-3.0310, 104.7125],
+    type: "tpst",
+    description: "Jl. Mayor Jend. Satibi Darwis, Keramasan, Kec. Kertapati, Kota Palembang, Sumatera Selatan 30259"
+  },
+  {
+    name: "Rencana TPST Sukawinatan (Program LSDP Bank Dunia)",
+    position: [-2.9350, 104.7380],
+    type: "tpst",
+    description: "Sukarami, Kota Palembang, Sumatera Selatan"
+  },
+  {
+    name: "Instalasi TPS 3R Kalidoni",
+    position: [-2.9612, 104.7925],
+    type: "tpst",
+    description: "Kalidoni, Kec. Kalidoni, Kota Palembang, Sumatera Selatan"
+  }
+];
+
+// ==========================================
+// 4. KELOMPOK BANK SAMPAH
+// ==========================================
+const bankSampahLocations = [
+  {
+    name: "Bank Sampah Indonesia Provinsi Sumatera Selatan",
+    position: [-2.9510, 104.7180],
+    type: "banksampah",
+    description: "Jl. KM 12 Alang - Alang Lebar, Lorong Kenanga No.015, RT.01/RW.01, Sukodadi, Kec. Sukarami, Kota Palembang, Sumatera Selatan 30151"
+  },
+  {
+    name: "Bank Sampah KGS (Kreatif & Daur Ulang)",
+    position: [-2.9812, 104.7750],
+    type: "banksampah",
+    description: "Jl. Sersan Zaini No. 2819, RT. 27, 2 Ilir, Kec. Ilir Tim. II, Kota Palembang, Sumatera Selatan 30163"
+  },
+  {
+    name: "Bank Sampah Induk Palembang",
+    position: [-2.9620, 104.7520],
+    type: "banksampah",
+    description: "Jl. Kolonel H. Burlian, Sukarami, Kec. Sukarami, Kota Palembang, Sumatera Selatan"
+  },
+  {
+    name: "Bank Sampah Hijau Lestari",
+    position: [-2.9650, 104.7435],
+    type: "banksampah",
+    description: "Jl. Perikanan 4, Talang Aman, Kec. Kemuning, Kota Palembang, Sumatera Selatan"
+  },
+  {
+    name: "Bank Sampah Pelangi (KSE UNSRI)",
+    position: [-2.9450, 104.6980],
+    type: "banksampah",
+    description: "Lrg. Jambu Klutuk No.3, Sukodadi, Kec. Sukarami, Kota Palembang, Sumatera Selatan"
+  },
+  {
+    name: "Bank Sampah Sejahtera 35 Ilir",
+    position: [-2.9910, 104.7510],
+    type: "banksampah",
+    description: "35 Ilir, Kec. Ilir Bar. II, Kota Palembang, Sumatera Selatan"
+  },
+  {
+    name: "Bank Sampah Bukit Baru",
+    position: [-2.9850, 104.7150],
+    type: "banksampah",
+    description: "Jl. Tanjung Raeds, Bukit Baru, Kec. Ilir Bar. I, Kota Palembang, Sumatera Selatan"
+  },
+  {
+    name: "Bank Sampah Sukarami Mandiri",
+    position: [-2.9420, 104.7280],
+    type: "banksampah",
+    description: "Sukarami, Kec. Sukarami, Kota Palembang, Sumatera Selatan"
   }
 ];
