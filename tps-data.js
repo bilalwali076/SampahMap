@@ -1,31 +1,8 @@
-// ==========================================
-// 1. KELOMPOK TPA (Tempat Pemrosesan Akhir)
-// ==========================================
-const tpaLocations = [
-  {
-    name: "TPA Sukawinatan",
-    position: [-2.9372, 104.7395],
-    type: "tpa",
-    description: "Jl. TPA Sukawinatan, Sukajaya, Kec. Sukarami, Kota Palembang, Sumatera Selatan 30961"
-  },
-  {
-    name: "TPA Karyajaya",
-    position: [-3.0415, 104.7082],
-    type: "tpa",
-    description: "Karya Jaya, Kec. Kertapati, Kota Palembang, Sumatera Selatan 30259"
-  },
-  {
-    name: "TPA Gandus",
-    position: [-3.0150, 104.7200],
-    type: "tpa",
-    description: "Gandus, Kec. Gandus, Kota Palembang, Sumatera Selatan"
-  }
-];
 
-// ==========================================
-// 2. KELOMPOK TPS & FASILITAS PENDUKUNG
-// ==========================================
 const tpsLocations = [
+  // ==========================================
+  // KELOMPOK TPS (Tempat Penampungan Sementara)
+  // ==========================================
   {
     name: "TPS Pulau Layang",
     position: [-2.9984, 104.8115],
@@ -81,12 +58,6 @@ const tpsLocations = [
     description: "Sako, Kec. Sako, Kota Palembang, Sumatera Selatan 30961"
   },
   {
-    name: "UPTD Kebersihan Kecamatan Ilir Timur I",
-    position: [-2.9715, 104.7540],
-    type: "fasilitas",
-    description: "Jl. Bay Salim, 20 Ilir D. I, Kec. Ilir Timur I, Kota Palembang, Sumatera Selatan 30126"
-  },
-  {
     name: "TPS Kebon Sirih",
     position: [-2.9612, 104.7925],
     type: "tps",
@@ -121,13 +92,43 @@ const tpsLocations = [
     position: [-3.0100, 104.7800],
     type: "tps",
     description: "Jl. Pangeran Ratu, 15 Ulu, Kec. Jakabaring, Kota Palembang, Sumatera Selatan 30267"
-  }
-];
+  },
 
-// ==========================================
-// 3. KELOMPOK TPST & FASILITAS PENGOLAHAN
-// ==========================================
-const tpstLocations = [
+  // ==========================================
+  // KELOMPOK TPA (Tempat Pemrosesan Akhir)
+  // ==========================================
+  {
+    name: "TPA Sukawinatan",
+    position: [-2.9372, 104.7395],
+    type: "tpa",
+    description: "Jl. TPA Sukawinatan, Sukajaya, Kec. Sukarami, Kota Palembang, Sumatera Selatan 30961"
+  },
+  {
+    name: "TPA Karyajaya",
+    position: [-3.0415, 104.7082],
+    type: "tpa",
+    description: "Karya Jaya, Kec. Kertapati, Kota Palembang, Sumatera Selatan 30259"
+  },
+  {
+    name: "TPA Gandus",
+    position: [-3.0150, 104.7200],
+    type: "tpa",
+    description: "Gandus, Kec. Gandus, Kota Palembang, Sumatera Selatan"
+  },
+
+  // ==========================================
+  // KELOMPOK FASILITAS KEBERSIHAN
+  // ==========================================
+  {
+    name: "UPTD Kebersihan Kecamatan Ilir Timur I",
+    position: [-2.9715, 104.7540],
+    type: "fasilitas",
+    description: "Jl. Bay Salim, 20 Ilir D. I, Kec. Ilir Timur I, Kota Palembang, Sumatera Selatan 30126"
+  },
+
+  // ==========================================
+  // KELOMPOK TPST & FASILITAS PENGOLAHAN
+  // ==========================================
   {
     name: "PSEL Kota Palembang",
     position: [-3.0310, 104.7125],
@@ -145,13 +146,11 @@ const tpstLocations = [
     position: [-2.9612, 104.7925],
     type: "tpst",
     description: "Kalidoni, Kec. Kalidoni, Kota Palembang, Sumatera Selatan"
-  }
-];
+  },
 
-// ==========================================
-// 4. KELOMPOK BANK SAMPAH
-// ==========================================
-const bankSampahLocations = [
+  // ==========================================
+  // KELOMPOK BANK SAMPAH
+  // ==========================================
   {
     name: "Bank Sampah Indonesia Provinsi Sumatera Selatan",
     position: [-2.9510, 104.7180],
