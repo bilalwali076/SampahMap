@@ -1,0 +1,18 @@
+PERBAIKAN SampahMap Palembang (7 November 2026)
+
+Ganti 4 file berikut di folder utama repositori, lalu commit & push:
+  lapor.js   - kolom kode_laporan tidak lagi dikirim (penyebab laporan gagal tersimpan, error PGRST204)
+  map.js     - instruksi navigasi diterjemahkan (left -> kiri, right -> kanan, dst.)
+  pages.css  - pesan "Rute gagal dimuat" kini tampil di layar HP
+  sw.js      - versi cache dinaikkan (v6 -> v7) agar HP pengguna memuat kode terbaru
+
+Contoh perintah:
+  git add lapor.js map.js pages.css sw.js
+  git commit -m "Perbaiki penyimpanan laporan, pesan error rute di HP, dan terjemahan navigasi"
+  git push
+
+Setelah Vercel selesai deploy, beri tahu asisten agar uji Blackbox putaran kedua dijalankan pada versi live.
+
+Data uji yang perlu dihapus di Supabase:
+  Tabel laporan_sampah : 2 baris dengan nama_pelapor "UJI BLACKBOX (abaikan)"
+  Storage foto-laporan : 1794060665581-9j884d65.jpg dan 1794053602840-9jnrddi1.jpg (jika masih ada)

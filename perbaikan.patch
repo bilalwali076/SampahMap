@@ -1,0 +1,95 @@
+diff --git a/lapor.js b/lapor.js
+index 8451b2d..41091bc 100644
+--- a/lapor.js
++++ b/lapor.js
+@@ -747,12 +747,9 @@ if (reportForm) {
+         uploadedPhotoPath = await uploadReportPhoto(selectedPhoto);
+       }
+ 
+-      // 2. Buat kode unik untuk laporan.
+-      const reportCode = crypto.randomUUID();
+-
+-      // 3. Susun data sesuai kolom tabel Supabase.
++      // 2. Susun data sesuai kolom tabel Supabase.
++      //    (Kolom kode_laporan tidak ada di tabel, sehingga tidak dikirim.)
+       const reportData = {
+-        kode_laporan: reportCode,
+         nama_pelapor: name,
+         jenis_laporan: type,
+         alamat: address,
+@@ -763,7 +760,7 @@ if (reportForm) {
+         status: "menunggu_verifikasi",
+       };
+ 
+-      // 4. Simpan data laporan.
++      // 3. Simpan data laporan.
+       await saveReport(reportData);
+ 
+       showReportMessage(
+diff --git a/map.js b/map.js
+index 41df4d0..0225bbc 100644
+--- a/map.js
++++ b/map.js
+@@ -595,6 +595,7 @@ function showRouteMessage(message) {
+   panel.replaceChildren();
+ 
+   const text = document.createElement("p");
++  text.className = "route-message";
+   text.textContent = message;
+ 
+   const cancelButton = document.createElement("button");
+@@ -714,6 +715,7 @@ revealRoutePanel(panel);
+   panel.replaceChildren();
+ 
+   const loading = document.createElement("p");
++  loading.className = "route-message";
+   loading.textContent = "Sedang menghitung rute...";
+   panel.appendChild(loading);
+   panel.classList.add("show");
+@@ -899,10 +901,22 @@ function loadNavigationSteps(route) {
+   if (currentStepIndex < 0) currentStepIndex = 0;
+ }
+ 
++const MODIFIER_ID = {
++  left: "kiri",
++  right: "kanan",
++  "slight left": "sedikit ke kiri",
++  "slight right": "sedikit ke kanan",
++  "sharp left": "tajam ke kiri",
++  "sharp right": "tajam ke kanan",
++  straight: "lurus",
++  uturn: "putar balik",
++};
++
+ function describeManeuver(step) {
+   const maneuver = step?.maneuver || {};
+   const type = maneuver.type || "continue";
+-  const modifier = maneuver.modifier || "";
++  const rawModifier = maneuver.modifier || "";
++  const modifier = MODIFIER_ID[rawModifier] || rawModifier;
+   const road = step?.name ? " ke " + step.name : "";
+ 
+   if (type === "depart") return "Mulai perjalanan" + road;
+diff --git a/pages.css b/pages.css
+index 755014a..af0d1d5 100644
+--- a/pages.css
++++ b/pages.css
+@@ -217,7 +217,7 @@
+     overflow: hidden;
+     text-overflow: ellipsis;
+   }
+-  .page-peta .route-panel > p:not(#navigationStatus) { display: none; }
++  .page-peta .route-panel > p:not(#navigationStatus):not(.route-message) { display: none; }
+   .page-peta #navigationStatus:not(.warn) { display: none; }
+   .page-peta #navigationStatus.warn { font-size: 0.75rem; color: var(--muted); line-height: 1.3; }
+   .page-peta .route-panel .btn {
+diff --git a/sw.js b/sw.js
+index 7705387..e51e53e 100644
+--- a/sw.js
++++ b/sw.js
+@@ -1,4 +1,4 @@
+-const CACHE_NAME = 'sampahmap-v6';
++const CACHE_NAME = 'sampahmap-v7';
+ const ASSETS = [
+   './', './index.html', './peta.html', './lapor.html', './edukasi.html', './tentang.html',
+   './style.css', './home.css', './pages.css', './greenearth.css', './lapor.css', './tentang.css',

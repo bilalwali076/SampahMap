@@ -217,7 +217,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .page-peta .route-panel > p:not(#navigationStatus) { display: none; }
+  .page-peta .route-panel > p:not(#navigationStatus):not(.route-message) { display: none; }
   .page-peta #navigationStatus:not(.warn) { display: none; }
   .page-peta #navigationStatus.warn { font-size: 0.75rem; color: var(--muted); line-height: 1.3; }
   .page-peta .route-panel .btn {

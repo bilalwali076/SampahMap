@@ -747,12 +747,9 @@ if (reportForm) {
         uploadedPhotoPath = await uploadReportPhoto(selectedPhoto);
       }
 
-      // 2. Buat kode unik untuk laporan.
-      const reportCode = crypto.randomUUID();
-
-      // 3. Susun data sesuai kolom tabel Supabase.
+      // 2. Susun data sesuai kolom tabel Supabase.
+      //    (Kolom kode_laporan tidak ada di tabel, sehingga tidak dikirim.)
       const reportData = {
-        kode_laporan: reportCode,
         nama_pelapor: name,
         jenis_laporan: type,
         alamat: address,
@@ -763,7 +760,7 @@ if (reportForm) {
         status: "menunggu_verifikasi",
       };
 
-      // 4. Simpan data laporan.
+      // 3. Simpan data laporan.
       await saveReport(reportData);
 
       showReportMessage(

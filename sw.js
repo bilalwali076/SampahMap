@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sampahmap-v6';
+const CACHE_NAME = 'sampahmap-v7';
 const ASSETS = [
   './', './index.html', './peta.html', './lapor.html', './edukasi.html', './tentang.html',
   './style.css', './home.css', './pages.css', './greenearth.css', './lapor.css', './tentang.css',

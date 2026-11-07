@@ -595,6 +595,7 @@ function showRouteMessage(message) {
   panel.replaceChildren();
 
   const text = document.createElement("p");
+  text.className = "route-message";
   text.textContent = message;
 
   const cancelButton = document.createElement("button");
@@ -714,6 +715,7 @@ revealRoutePanel(panel);
   panel.replaceChildren();
 
   const loading = document.createElement("p");
+  loading.className = "route-message";
   loading.textContent = "Sedang menghitung rute...";
   panel.appendChild(loading);
   panel.classList.add("show");
@@ -899,10 +901,22 @@ function loadNavigationSteps(route) {
   if (currentStepIndex < 0) currentStepIndex = 0;
 }
 
+const MODIFIER_ID = {
+  left: "kiri",
+  right: "kanan",
+  "slight left": "sedikit ke kiri",
+  "slight right": "sedikit ke kanan",
+  "sharp left": "tajam ke kiri",
+  "sharp right": "tajam ke kanan",
+  straight: "lurus",
+  uturn: "putar balik",
+};
+
 function describeManeuver(step) {
   const maneuver = step?.maneuver || {};
   const type = maneuver.type || "continue";
-  const modifier = maneuver.modifier || "";
+  const rawModifier = maneuver.modifier || "";
+  const modifier = MODIFIER_ID[rawModifier] || rawModifier;
   const road = step?.name ? " ke " + step.name : "";
 
   if (type === "depart") return "Mulai perjalanan" + road;
